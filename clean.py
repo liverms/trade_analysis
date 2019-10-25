@@ -83,10 +83,21 @@ def commodity_type_code(df_in):
     for error in fix_construction:
         df_in['commodity_type_code'] = df_in['commodity_type_code'].str.replace(error, 'Contruction')
 
-    #get rid of commodity_type_codes that don't make sense
-    df_in['commodity_type_code'] = df_in[df_in['commodity_type_code'] != 'B']
-    df_in['commodity_type_code'] = df_in[df_in['commodity_type_code'] != 'GS']
+    commodity_codes = ['Goods', 'Services', 'Construction']
+    if df['commodity_type_code'].isin(commodity_codes) is True:
+        pass
+    else:
+        service_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+                           'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'r', 's', 't', 'u', 'v', 'w', 'x']
+        goods_letters = ['N', 'n', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
+        unknown_letters = ['I', 'i', 'O', 'o', 'P', 'p', 'Q', 'q', 'Y', 'y', 'Z', 'z', '0']
+        for letter in service_letters:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Services'
+        for letter in goods_letters:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Goods'
+        for letter in unknown_letters:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Unknown'
     return df_in
 
 
@@ -203,115 +214,127 @@ def agreement_type_code(df_in):
         df_in['agreement_type_code'].replace(key, value, inplace=True)
 
     df_in['agreement_type_code'] = df_in['agreement_type_code'].str.split('/').tolist()
-
+    df_in = df_in.explode('agreement_type_code')
     return df_in
-# df = df.explode('agreement_type_code')
+
 
 
 def owner_abrev(df_in):
     abrev = {
-    'Agriculture and Agri-Food Canada': 'AAFC',
-    'Crown-Indigenous Relations and Northern Affairs Canada': 'INAC',
-    'Atlantic Canada Opportunities Agency': 'ACOA',
-    'Administrative Tribunals Support Service of Canada': 'ATSSC',
-    'Canadian Northern Economic Development Agency': 'CanNor',
-    'Courts Administration Service': 'CAS',
-    'Canada Border Services Agency': 'CBSA',
-    'Canadian Centre for Occupational Health and Safety': 'CCOHS',
-    'Canada Economic Development for Quebec Regions': 'CED',
-    'Canada Energy Regulator': 'CER',
-    'Canadian Food Inspection Agency': 'CFIA',
-    'Canadian Grain Commission': 'CGC',
-    'Canadian Human Rights Commission': 'CHRC',
-    'Immigration, Refugees and Citizenship Canada': 'IRCC',
-    'Canadian Intergovernmental Conference Secretariat': 'CICS',
-    'Canadian Institutes of Health Research': 'CIHR',
-    'Canadian Nuclear Safety Commission': 'CNSC',
-    'Civilian Review and Complaints Commission for the RCMP': 'CRCC',
-    'Canada Revenue Agency': 'CRA',
-    'Canadian Radio-television and Telecommunications Commission': 'CRTC',
-    'Canadian Space Agency': 'CSA',
-    'Correctional Service of Canada': 'CSC',
-    'Canada School of Public Service': 'CSPS',
-    'Canadian Transportation Agency': 'CTA',
-    'Global Affairs Canada': 'GAC',
-    'Fisheries and Oceans Canada': 'DFO',
-    'National Defence': 'DND',
-    'Environment and Climate Change Canada': 'ECCC',
-    'Elections Canada': 'CEO',
-    'Employment and Social Development Canada': 'ESDC',
-    'Financial Consumer Agency of Canada': 'FCAC',
-    'Federal Economic Development Agency for Southern Ontario': 'FedDev Ontario',
-    'Department of Finance Canada': 'FIN',
-    'Financial Transactions and Reports Analysis Centre of Canada': 'FINTRAC',
-    'Office of the Commissioner for Federal Judicial Affairs Canada': 'FJA',
-    'Farm Products Council of Canada': 'FPCC',
-    'Health Canada': 'HC',
-    'Impact Assessment Agency of Canada': 'none',
-    'Innovation, Science and Economic Development Canada': 'ISED',
-    'International Joint Commission': 'none',
-    'Infrastructure Canada': 'INFC',
-    'Immigration and Refugee Board of Canada': 'IRB',
-    'Indigenous Services Canada': 'ISC',
-    'Department of Justice Canada': 'JUS',
-    'Library and Archives Canada': 'LAC',
-    'Military Grievances External Review Committee': 'MGERC',
-    'National Film Board': 'NFB',
-    'Natural Resources Canada': 'NRCan',
-    'National Research Council Canada': 'NRC',
-    'Natural Sciences and Engineering Research Council of Canada': 'NSERC',
-    'Office of the Auditor General of Canada': 'OAG',
-    'The Correctional Investigator Canada': 'OCI',
-    'Office of the Commissioner of Lobbying of Canada': 'OCL',
-    'Office of the Commissioner of Official Languages': 'OCOL',
-    'Office of the Information Commissioner of Canada': 'OIC',
-    'Office of the Privacy Commissioner of Canada': 'OPC',
-    'Office of the Superintendent of Financial Institutions Canada': 'OSFI',
-    'Office of the Secretary to the Governor General': 'OSGG',
-    'Office of the Taxpayers': 'none',
-    'Parole Board of Canada': 'PBC',
-    'Parks Canada': 'PC',
-    'Canadian Heritage': 'PCH',
-    'Privy Council Office': 'PCO',
-    'Public Health Agency of Canada': 'PHAC',
-    'Patented Medicine Prices Review Board Canada': 'PMPRB',
-    'Public Prosecution Service of Canada': 'PPSC',
-    'Passport Canada': 'none',
-    'Public Service Commission of Canada': 'PSC',
-    'Office of the Public Sector Integrity Commissioner of Canada': 'PSIC',
-    'Public Safety Canada': 'PS',
-    'Public Services and Procurement Canada': 'PSPC',
-    'Royal Canadian Mounted Police': 'RCMP',
-    'Security Intelligence Review Committee': 'SIRC',
-    'Shared Services Canada': 'SSC',
-    'Social Sciences and Humanities Research Council of Canada': 'SSHRC',
-    'Statistics Canada': 'StatCan',
-    'Status of Women Canada': 'SWC',
-    'Treasury Board of Canada Secretariat': 'TBS',
-    'Transport Canada': 'TC',
-    'Transportation Safety Board of Canada': 'TSB',
-    'Veterans Affairs Canada': 'VAC',
-    'Veterans Review and Appeal Board': 'VRAB',
-    'Department for Women and Gender Equality': 'SWC',
-    'Western Economic Diversification Canada': 'WD',
+        'Agriculture and Agri-Food Canada': 'AAFC',
+        'Crown-Indigenous Relations and Northern Affairs Canada': 'INAC',
+        'Atlantic Canada Opportunities Agency': 'ACOA',
+        'Administrative Tribunals Support Service of Canada': 'ATSSC',
+        'Canadian Northern Economic Development Agency': 'CanNor',
+        'Courts Administration Service': 'CAS',
+        'Canada Border Services Agency': 'CBSA',
+        'Canadian Centre for Occupational Health and Safety': 'CCOHS',
+        'Canada Economic Development for Quebec Regions': 'CED',
+        'Canada Energy Regulator': 'CER',
+        'Canadian Food Inspection Agency': 'CFIA',
+        'Canadian Grain Commission': 'CGC',
+        'Canadian Human Rights Commission': 'CHRC',
+        'Immigration, Refugees and Citizenship Canada': 'IRCC',
+        'Canadian Intergovernmental Conference Secretariat': 'CICS',
+        'Canadian Institutes of Health Research': 'CIHR',
+        'Canadian Nuclear Safety Commission': 'CNSC',
+        'Civilian Review and Complaints Commission for the RCMP': 'CRCC',
+        'Canada Revenue Agency': 'CRA',
+        'Canadian Radio-television and Telecommunications Commission': 'CRTC',
+        'Canadian Space Agency': 'CSA',
+        'Correctional Service of Canada': 'CSC',
+        'Canada School of Public Service': 'CSPS',
+        'Canadian Transportation Agency': 'CTA',
+        'Global Affairs Canada': 'GAC',
+        'Fisheries and Oceans Canada': 'DFO',
+        'National Defence': 'DND',
+        'Environment and Climate Change Canada': 'ECCC',
+        'Elections Canada': 'CEO',
+        'Employment and Social Development Canada': 'ESDC',
+        'Financial Consumer Agency of Canada': 'FCAC',
+        'Federal Economic Development Agency for Southern Ontario': 'FedDev Ontario',
+        'Department of Finance Canada': 'FIN',
+        'Financial Transactions and Reports Analysis Centre of Canada': 'FINTRAC',
+        'Office of the Commissioner for Federal Judicial Affairs Canada': 'FJA',
+        'Farm Products Council of Canada': 'FPCC',
+        'Health Canada': 'HC',
+        'Impact Assessment Agency of Canada': 'none',
+        'Innovation, Science and Economic Development Canada': 'ISED',
+        'International Joint Commission': 'none',
+        'Infrastructure Canada': 'INFC',
+        'Immigration and Refugee Board of Canada': 'IRB',
+        'Indigenous Services Canada': 'ISC',
+        'Department of Justice Canada': 'JUS',
+        'Library and Archives Canada': 'LAC',
+        'Military Grievances External Review Committee': 'MGERC',
+        'Military Police Complaints Commission of Canada': 'MPCC',
+        'National Film Board': 'NFB',
+        'Natural Resources Canada': 'NRCan',
+        'National Research Council Canada': 'NRC',
+        'Natural Sciences and Engineering Research Council of Canada': 'NSERC',
+        'Office of the Auditor General of Canada': 'OAG',
+        'The Correctional Investigator Canada': 'OCI',
+        'Office of the Commissioner of Lobbying of Canada': 'OCL',
+        'Office of the Commissioner of Official Languages': 'OCOL',
+        'Office of the Information Commissioner of Canada': 'OIC',
+        'Office of the Privacy Commissioner of Canada': 'OPC',
+        'Office of the Superintendent of Financial Institutions Canada': 'OSFI',
+        'Office of the Secretary to the Governor General': 'OSGG',
+        'Office of the Taxpayers': 'none',
+        'Parole Board of Canada': 'PBC',
+        'Parks Canada': 'PC',
+        'Canadian Heritage': 'PCH',
+        'Privy Council Office': 'PCO',
+        'Public Health Agency of Canada': 'PHAC',
+        'Patented Medicine Prices Review Board Canada': 'PMPRB',
+        'Public Prosecution Service of Canada': 'PPSC',
+        'Passport Canada': 'none',
+        'Public Service Commission of Canada': 'PSC',
+        'Office of the Public Sector Integrity Commissioner of Canada': 'PSIC',
+        'Public Safety Canada': 'PS',
+        'Public Services and Procurement Canada': 'PSPC',
+        'Royal Canadian Mounted Police': 'RCMP',
+        'Security Intelligence Review Committee': 'SIRC',
+        'Shared Services Canada': 'SSC',
+        'Social Sciences and Humanities Research Council of Canada': 'SSHRC',
+        'Statistics Canada': 'StatCan',
+        'Status of Women Canada': 'SWC',
+        'Treasury Board of Canada Secretariat': 'TBS',
+        'Transport Canada': 'TC',
+        'Transportation Safety Board of Canada': 'TSB',
+        'Veterans Affairs Canada': 'VAC',
+        'Veterans Review and Appeal Board': 'VRAB',
+        'Department for Women and Gender Equality': 'SWC',
+        'Western Economic Diversification Canada': 'WD',
     }
 
-    df['Abbreviation'] = df['owner_org_title']
+    df['abbreviation'] = df['owner_org_title']
 
+    for t, a in abrev.items():
+        df_in.loc[df_in['abbreviation'].str.contains(t), 'abbreviation'] = a
 
+    return df_in
+ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
 
+df = reporting_period(df)
 
-ent = pd.read_csv('https://raw.githubusercontent.com/liverms/sig/master/Content/entities.csv')
+years = ['2019', '2018', '2017']
+df = df[df['reporting_period'].isin(years)]
 
-
+df = owner_abrev(df)
 df = original_value(df)
 df = commodity_type_code(df)
-df = reporting_period(df)
+
 df = document_type_code(df)
 df = agreement_type_code(df)
 
-df_un= df['owner_org_title'].unique()
-pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
-print(df.describe())
+df = df[df['commodity_type_code'] != 'Goods']
+df = df[df['commodity_type_code'] != 'Services']
+df = df[df['commodity_type_code'] != 'Construction']
+
+
+print(df)
+# pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
+
 ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
 df.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv')

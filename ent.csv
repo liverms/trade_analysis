@@ -1,125 +1,97 @@
-,Entities,Abbreviation,CFTA,NAFTA,CCFTA,CCoFTA,CHFTA,CPaFTA,CPFTA,CKFTA,CUFTA,WTO_AGP,CETA,CPTPP
-0,Administrative Tribunals Support Service of Canada 1,ATSSC,,"Covers only: Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada 
-
-","Covers only:
-Competition Tribunal, Registry of the Competition Tribunal, Canadian International Trade Tribunal","Covers only:
-Registry of the Competition Tribunal, Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Registry of the Competition Tribunal, Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Competition Tribunal, Registry of the Competition Tribunal, Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Registry of the Competition Tribunal, Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Registry of the Competition Tribunal, Canadian International Trade Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Canadian International Trade Tribunal and Registry of the Competition Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Canada Agricultural Review Tribunal, Canadian Human Rights Tribunal, Canadian International Trade Tribunal, Public Servants Disclosure Protection Tribunal Canada, Social Security Tribunal of Canada, Registry of the Specific Claims Tribunal of Canada ","Covers only:
-Canadian Human Rights Tribunal, Canadian International Trade Tribunal, Registry of the Competition Tribunal, Registry of the Public Servants Disclosure Protection Tribunal, Registry of the Specific Claims Tribunal, Transportation Appeal Tribunal of Canada ","Covers only:
-Canadian Human Rights Tribunal, Canadian International Trade Tribunal, Registry of the Competition Tribunal, Registry of the Public Servants Disclosure Protection Tribunal, Registry of the Specific Claims Tribunal, Transportation Appeal Tribunal of Canada "
-1,Auditor General of Canada (Office of the),OAG,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-2,Canada Border Services Agency,CBSA,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-3,Canada Emission Reduction Incentives Agency,CERIA,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-4,Canada Employment Insurance Commission,CEIC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-5,Canada Industrial Relations Board,CIRB,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-6,Canada Revenue Agency ,CRA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-7,Canada School of Public Service ,CSPS,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-8,Canadian Centre for Occupational Health and Safety ,CCOHS,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-9,Canada Employment Insurance Commission,CEIC,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO
-10,Canadian Environmental Assessment Agency,CEAA,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-11,Canadian Food Inspection Agency ,CFIA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-12,Canadian Grain Commission,CGC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-13,Canadian Heritage (Department of),PCH,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-14,Canadian Human Rights Commission,CHRC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-15,Canadian Institutes of Health Research ,CIHR,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-16,Canadian Intergovernmental Conference Secretariat ,CICS,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-17,Canadian Northern Economic Development Agency (Policy Initiative),CanNor,YES,,,,,,,,,,YES,YES
-18,Canadian Nuclear Safety Commission,CNSC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-19,Canadian Radio-Television and Telecommunications Commission,CRTC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-20,Canadian Transportation Accident Investigation and Safety Board,CTAISB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-21,Canadian Space Agency ,CSA,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES 2,NO
-22,Canadian Transportation Agency ,CTA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-23,Chief Electoral Officer (Office of the),CEO,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-24,Citizenship & Immigration Canada (Department of),IRCC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-25,Civilian Review and Complaints Commission for the RCMP (listed in all TAs as the Royal Canadian Mounted Police Public Complaints Commission),CRCC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-26,Commissioner for Federal Judicial Affairs (Office of the),FJA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-27,Commissioner of Lobbying (Office of the),OCL,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-28,Commissioner of Official Languages (Office of the),OCOL,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-29,Communications Security Establishment Commissioner (Office of the),OCSEC,NO,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,NO
-30,Copyright Board Canada ,CB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-31,Correctional Investigator of Canada (Office of the),OCI,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-32,Correctional Service of Canada (includes or does not include CORCAN? CORCAN is not covered under the TAs),CSC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-33,Courts Administration Service ,CAS,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-34,Economic Development Agency of Canada for the Regions of Quebec (previously known as the Canada Economic Development for Quebec Regions),CED,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-35,Employment and Social Development Canada (Department of),ESDC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-36,Environment Canada (Department of),ECCC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-37,Environmental Protection Review Canada ,EPRC,YES,,,,,,,,,,,
-38,Federal Court of Canada (Registry of),FC,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO
-39,Federal Economic Development Agency for Southern Ontario,FedDev Ontario,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-40,Finance Canada (Department of),FIN,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-41,Financial Consumer Agency of Canada ,FCAC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-42,Financial Transactions and Reports Analysis Centre of Canada,FINTRAC,NO,,,,,,,,,,,
-43,Fisheries and Oceans Canada (Department of),DFO,YES,YES,YES 3,YES,YES,YES,YES,YES,YES,YES,YES,YES
-44,"Foreign Affairs, Trade and Development (Department of)",GAC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-45,Governor General of Canada ,OSGG,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-46,Hazardous Materials Information Review Commission,HMIRC,YES,NO,YES,YES,YES,YES,YES,NO,NO,NO,NO,NO
-47,Health Canada (Department of),HC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-48,Historic Sites and Monuments Board of Canada ,HSMBC,YES,,,,,,,,,,,
-49,Immigration and Refugee Board of Canada ,IRB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-50,Indian Affairs and and Northern Development (Department of),"INAC
-ISC
-CIRNAC",YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-51,Information Commissioner (Office of the),OIC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-52,Infrastructure of Canada (Office of),INFC,YES,NO,NO,NO,YES,NO,NO,NO,YES,NO,YES,YES
-53,Industry Canada (Department of) 4,ISED,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-54,Justice Canada (Department of),JUS,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-55,Labour Program (Part of the Employment and Social Development Canada portfolio),ESDC,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO
-56,Law Commission of Canada,,YES,,,,,,,,,,,
-57,Leaders' Debates Commission,,YES,,,,,,,,,,,
-58,Library and Archives of Canada,LAC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-59,Medical Research Council of Canada,MCC,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO
-60,Military Grievances External Review Committee (formerly the Canadian Forces Grievance Board),MGERC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,"YES 
-*UNDER CANADIAN FORCES GRIEVANCE BOARD",YES
-61,Military Police Complaints Commission of Canada,MPCC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-62,Municipal Development and Loan Board,,YES,YES,YES,YES,YES,YES,YES,NO,NO,YES,NO,NO
-63,National Battlefields Commission (Under the portfolio of the Minister of Canadian Heritage),NBC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-64,National Defence (Department of) 6 7 8,DND,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-65,National Energy Board,NEB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-66,National Farm Products Council of Canada ,FPCC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-67,National Film Board ,NFB,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-68,National Research Council of Canada,NRC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-69,National Seniors Council,NSC,YES,,,,,,,,,,,
-70,Natural Resources Canada (Department of),NRCan,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-71,Natural Sciences and Engineering Research Council,NSERC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-72,Northern Pipeline Agency ,NPA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-73,Parks Canada Agency,PC ,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-74,Parole Board of Canada (part of the Public Safety portfolio),PBC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-75,Patented Medicine Prices Review Board Canada,PMPRB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-76,Polar Knowledge Canada (departmental corporation within the portfolio of the Minister of Crown-Indigenous Relations and Northern Affairs) 9,POLAR,YES,,,,,,,,,,"YES
-*COVERED UNDER THE CANADIAN POLAR COMMISSION","YES
-*COVERED UNDER THE CANADIAN POLAR COMMISSION"
-77,Privacy Commissioner of Canada (Office of the),OPC,YES,,,,,,,,,,YES,
-78,Privy Council Office ,PCO,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-79,Public Health Agency of Canada ,PHAC,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-80,Public Prosecution Service of Canada (Office of the Director of Public Prosecutions?),PPSC,YES,,,,,,,,,,YES,YES
-81,Public Safety and Emergency Preparedness (Department of) ,PS,YES,YES,NO,YES,YES,YES,YES,YES,YES,YES,YES,YES
-82,Public Sector Integrity Commissioner of Canada (Office of the),PSIC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-83,Public Service Commission of Canada ,PSC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-84,Public Service Labour Relations and Employment Board ,PSLREB,YES,YES,YES,YES,YES,YES,YES,YES,YES,NO,YES,YES
-85,Public Works and Government Services (Department of),PSPC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-86,Royal Canadian Mounted Police ,RCMP,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-87,Royal Canadian Mounted Police External Review Committee,ERC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-88,Security Intelligence Review Committee,SIRC,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-89,Shared Services Canada 11,SSC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-90,Social Sciences and Humanities Research Council of Canada ,SSHRC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-91,Soldier Settlement Board,SSB,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-92,Statistics Canada ,StatCan,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-93,Statute Revision Commission,,YES,NO,YES,YES,YES,YES,YES,NO,NO,YES,NO,NO
-94,Superintendent of Financial Institutions (Office of the),OSFI,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-95,Registrar of the Supreme Court of Canada and that portion of the federal public administration appointed under subsection 12(2) of the Supreme Court Act,SCC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,"YES
-*LISTED AS THE REGISTRAR OF THE SUPREME COURT OF CANADA","YES
-*LISTED AS THE REGISTRAR OF THE SUPREME COURT OF CANADA"
-96,Tax Court of Canada ,TCC,YES,NO,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO
-97,Transport Canada (Department of),TC,YES,YES,YES 5,YES,YES,YES,YES,YES,YES,YES,YES,YES
-98,Transportation Safety Board of Canada ,TSB,YES,,,,,,,,,,YES,
-99,Treasury Board of Canada Secretariat 10,TBS,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-100,Veterans Affairs Canada (Department of),VAC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-101,Veteran's Land Act (Director of),VLA,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-102,Veterans Review and Appeal Board ,VRAB,YES,NO,NO,NO,NO,NO,NO,NO,NO,NO,YES,YES
-103,Western Economic Diversification Canada (Department of),WD,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
-104,Women and Gender Equality (Department for) *,SWC,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES,YES
+,Federal Entity,Abbreviation,NAFTA,CCFTA,CCoFTA,CHFTA,CPaFTA,CPFTA,CKFTA,CUFTA,WTO-AGP,CETA,CPTPP
+0,Administrative Tribunals Support Service of Canada 1,ATSSC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+1,Atlantic Canada Opportunities Agency,ACOA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+2,Canada Border Services Agency,CBSA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+3,Canada Emission Reduction Incentives Agency,CERIA,No,No,No,No,No,No,No,No,No,Yes,Yes
+4,Canada Employment Insurance Commission,CEIC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+5,Canada Revenue Agency ,CRA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+6,Canada School of Public Service ,CSPS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+7,Canadian Centre for Occupational Health and Safety ,CCOHS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+8,Canadian Environmental Assessment Agency,CEAA,No,No,No,No,No,No,No,No,No,Yes,Yes
+9,Canadian Food Inspection Agency ,CFIA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+10,Canadian Grain Commission,CGC,No,No,No,No,No,No,No,No,No,Yes,Yes
+11,Canadian High Arctic Research Station,CHARS,No,No,No,No,No,No,No,No,No,Yes,Yes
+12,Canadian Human Rights Commission,CHRC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+13,Canadian Institutes of Health Research ,CIHR,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+14,Canadian Intergovernmental Conference Secretariat ,CICS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+15,Canadian Northern Economic Development Agency ,CanNor,No,No,No,No,No,No,No,No,No,Yes,Yes
+16,Canadian Nuclear Safety Commission,CNSC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+17,Canadian Radio-Television and Telecommunications Commission,CRTC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+18,Canadian Transportation Accident Investigation and Safety Board,CTAISB,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+19,Canadian Security Intelligence Service ,CSIS,No,No,No,No,No,No,No,No,No,No,No
+20,Canadian Space Agency ,CSA,No,No,No,No,No,No,No,No,No,Yes ,No
+21,Canadian Transportation Agency ,CTA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+22,Civilian Review and Complaints Commission for the RCMP  ,CRCC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+23,Communications Security Establishment,CSE,No,No,No,No,No,No,No,No,No,No,No
+24,Copyright Board ,CB,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+25,Correctional Service of Canada,CSC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+26,Courts Administration Service 2,CAS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+27,Department of Agriculture and Agri-Food ,AAFC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+28,Department of Canadian Heritage ,PCH,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+29,Department of Citizenship & Immigration,IRCC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+30,Department of Employment and Social Development,ESDC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+31,Department of the Environment,ECCC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+32,Department of Finance ,FIN,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+33,Department of Fisheries and Oceans,DFO,Yes,Yes ,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+34,"Department of Foreign Affairs, Trade and Development",GAC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+35,Department of Health ,HC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+36,Department of Indian Affairs and Northern Development,CIRNAC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+37,Department of Indigenous Services Canada,ISC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+38,Department of Industry,ISED,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+39,Department of Justice,JUS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+40,Department of National Defence,DND,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+41,Department of Natural Resources,NRCan,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+42,Department of Public Safety and Emergency Preparedness,PS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+43,Department of Public Works and Government Services,PSPC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+44,Department of Transport,TC,Yes,Yes ,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+45,Department of Veterans Affairs,VAC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+46,Department of Western Economic Diversification,WD,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+47,Department for Women and Gender Equality,SWC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+48,Economic Development Agency of Canada for the Regions of Quebec,CED,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+49,Federal Economic Development Agency for Southern Ontario,FedDev Ontario,No,No,No,No,No,No,No,No,No,Yes,Yes
+50,Financial Consumer Agency of Canada ,FCAC,No,No,No,No,No,No,No,No,No,Yes,Yes
+51,Financial Transactions and Reports Analysis Centre of Canada,FINTRAC,No,No,No,No,No,No,No,No,No,No,No
+52,Hazardous Materials Information Review Commission,HMIRC,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No
+53,Immigration and Refugee Board ,IRB,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+54,Invest in Canada Hub,,No,No,No,No,No,No,No,No,No,No,No
+55,Law Commission of Canada,,No,No,No,No,No,No,No,No,No,No,No
+56,Leaders' Debates Commission,,No,No,No,No,No,No,No,No,No,No,No
+57,Library and Archives of Canada,LAC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+58,Military Grievances External Review Committee,MGERC,No,No,No,No,No,No,No,No,No,Yes ,Yes
+59,Military Police Complaints Commission,MPCC,No,No,No,No,No,No,No,No,No,Yes,Yes
+60,National Battlefields Commission,NBC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+61,National Energy Board,NEB,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+62,National Farm Products Council,FPCC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+63,National Film Board ,NFB,No,No,No,No,No,No,No,No,No,Yes,Yes
+64,National Research Council of Canada,NRC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+65,Natural Sciences and Engineering Research Council,NSERC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+66,Northern Pipeline Agency ,NPA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+67,Office of the Auditor General,OAG,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+68,Office of the Chief Electoral Officer,CEO,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+69,Office of the Commissioner for Federal Judicial Affairs ,FJA,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+70,Office of the Commissioner of Lobbying ,OCL,No,No,No,No,No,No,No,No,No,Yes,Yes
+71,Office of the Commissioner of Official Languages,OCOL,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+72,Office of the Communications Security Establishment Commissioner ,OCSEC,No,No,No,No,No,No,No,No,No,Yes,No
+73,Office of the Correctional Investigator of Canada,OCI,No,No,No,No,No,No,No,No,No,Yes,Yes
+74,Office of the Director of Public Prosecutions,PPSC,No,No,No,No,No,No,No,No,No,Yes,Yes
+75,Office of the Governor General's Secretary ,OSGG,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+76,Offices of the Information and Privacy Commissioners of Canada,OIC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+77,Office of Infrastructure of Canada,INFC,No,No,No,Yes,No,No,No,Yes,No,Yes,Yes
+78,Office of the Public Sector Integrity Commissioner,PSIC,No,No,No,No,No,No,No,No,No,Yes,Yes
+79,Office of the Superintendent of Financial Institutions ,OSFI,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+80,Parks Canada Agency,PC ,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+81,Parole Board of Canada,PBC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+82,Patented Medicine Prices Review Board,PMPRB,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+83,Privy Council Office ,PCO,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+84,Public Health Agency of Canada ,PHAC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+85,Public Service Commission,PSC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+86,Registrar of the Supreme Court of Canada and that portion of the federal public administration appointed under subsection 12(2) of the Supreme Court Act,SCC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+87,Royal Canadian Mounted Police ,RCMP,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+88,Royal Canadian Mounted Police External Review Committee,ERC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+89,Secretariat of the National Security and Intelligence Committee of Parliamentarians,NSICOP,No,No,No,No,No,No,No,No,No,No,No
+90,Security Intelligence Review Committee,SIRC,No,No,No,No,No,No,No,No,No,Yes,Yes
+91,Shared Services Canada ,SSC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+92,Social Sciences and Humanities Research Council,SSHRC,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+93,Statistics Canada ,StatCan,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+94,Treasury Board,TBS,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+95,Veterans Review and Appeal Board ,VRAB,No,No,No,No,No,No,No,No,No,Yes,Yes
