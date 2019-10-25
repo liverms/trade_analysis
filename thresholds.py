@@ -10,7 +10,8 @@ usecols=[
     'document_type_code',
     'agreement_type_code',
     'procurement_id',
-    'abbreviation'
+    'abbreviation',
+    'limited_tendering_reason_code'
 ]
 #data types of columns
 dtype={
@@ -22,7 +23,8 @@ dtype={
     'document_type_code':str,
     'agreement_type_code': str,
     'procurement_id': str,
-    'abbreviation': str
+    'abbreviation': str,
+    'limited_tendering_reason_code':str
 }
 
 df = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv',
@@ -32,38 +34,75 @@ df = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv',
 
 ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
 thresholds = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/thresholds.csv')
+thresholds.set_index('Type', inplace=True)
+thresholds.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/thresholds.csv')
 df = df.merge(ent, how='outer', left_on='abbreviation', right_on='Abbreviation')
 
 
-nafta = df[df['NAFTA'] == 'Yes']
-ccfta = df[df['CCFTA'] == 'Yes']
-ccofta = df[df['CCoFTA'] == 'Yes']
-cpafta = df[df['CPaFTA'] == 'Yes']
-cpfta = df[df['CPFTA'] == 'Yes']
-ckfta = df[df['CKFTA'] == 'Yes']
-wto_agp = df[df['WTO-AGP'] == 'Yes']
-ceta = df[df['CETA'] == 'Yes']
-cptpp = df[df['CPTPP'] == 'Yes']
+trade = [
+    'NAFTA',
+    'CCFTA',
+    'CCoFTA',
+    'CHFTA',
+    'CPaFTA',
+    'CPFTA',
+    'CKFTA',
+    'WTO-AGP',
+    'CETA',
+    'CPTPP',
+    '0'
+]
 
-nafta = nafta[nafta['agreement_type_code'] == 'NAFTA']
-ccfta = ccfta[ccfta['agreement_type_code'] == 'CCFTA']
-ccofta = ccofta[ccofta['agreement_type_code'] == 'CCoFTA']
-cpafta = cpafta[cpafta['agreement_type_code'] == 'CPaFTA']
-cpfta = cpfta[cpfta['agreement_type_code'] == 'CPFTA']
-ckfta = ckfta[ckfta['agreement_type_code'] == 'CKFTA']
-wto_agp = wto_agp[wto_agp['agreement_type_code'] == 'WTO-AGP']
-ceta = ceta[ceta['agreement_type_code'] == 'CETA']
-cptpp = cptpp[cptpp['agreement_type_code'] == 'CPTPP']
-none = df[df['agreement_type_code'] == '0']
+for x in trade:
+    if x == '0':
+        val = df
+    else:
+        val = df[df[x] == 'Yes']
 
-df_list = [nafta, ccfta, ccofta, cpafta, cpfta, ckfta, wto_agp, ceta, cptpp, none]
+    val = val.reset_index()
+    val = val[usecols]
 
-for x in df_list:
-    x=x.reset_index()
-    x.drop('index', axis=1, inplace=True)
-    print(x)
+    val = val[val['limited_tendering_reason_code'] != '00']
 
 
+    commodities = ['Goods', 'Services', 'Construction']
+    for com in commodities:
+        if x == '0':
+            check = val
 
-none.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/none.csv')
-ccfta.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ccfta.csv')
+        else:
+            dollar = thresholds[x].at[com]
+
+
+    # for com in commodities:
+    #     if x == '0':
+    #         pass
+    #     else:
+    #         dollar = thresholds.loc['CFTA']
+    #         # val = val[(val['commodity_type_code'] == com)]
+    #         print(dollar)
+
+ # & (val['original_value'] > thresholds.loc[x].at[1])
+#
+# for item in df_list:
+#     item = item[item['limited_tendering_reason_code'] != '00']
+#     item = item.reset_index()
+#     item.drop('index', axis=1, inplace=True)
+#     if item == cfta:
+#         item = item[(item['commodity_type_code'] == 'Goods') & (item['original_value'] > 25300)]
+#         item = item[(item['commodity_type_code'] == 'Services') & (item['original_value'] > 101100)]
+#         item = item[(item['commodity_type_code'] == 'Construction') & (item['original_value'] > 101100)]
+#     print(item)
+
+
+#
+#
+#
+#
+# none = none[none['limited_tendering_reason_code'] == '00']
+# none = none.loc[(none['commodity_type_code'] == 'Goods') & (none['original_value'] > 25300)]
+#
+#
+# print(none)
+# none.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/none.csv')
+# ccfta.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ccfta.csv')

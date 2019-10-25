@@ -45,54 +45,21 @@ trade_agreements = [
     'CUFTA',
     'WTO-AGP',
     'CETA',
-    'CPTPP'
+    'CPTPP',
+    '0'
 ]
 
-# cfta = df[df['agreement_type_code'] == 'CFTA']
-# nafta = df[df['agreement_type_code'] == 'NAFTA']
-# ccfta = df[df['agreement_type_code'] == 'CCFTA']
-# ccofta = df[df['agreement_type_code'] == 'CCoFTA']
-# cpafta = df[df['agreement_type_code'] == 'CPaFTA']
-# cpfta = df[df['agreement_type_code'] == 'CPFTA']
-# ckfta = df[df['agreement_type_code'] == 'CKFTA']
-# wto_agp = df[df['agreement_type_code'] == 'WTO-AGP']
-# ceta = df[df['agreement_type_code'] == 'CETA']
-# cptpp = df[df['agreement_type_code'] == 'CPTPP']
+for x in trade_agreements:
+    if x == '0':
+        val = df
+    else:
+        val = df[df[x] == 'No']
 
-nafta = df[df['NAFTA'] == 'No']
-ccfta = df[df['CCFTA'] == 'No']
-ccofta = df[df['CCoFTA'] == 'No']
-cpafta = df[df['CPaFTA'] == 'No']
-cpfta = df[df['CPFTA'] == 'No']
-ckfta = df[df['CKFTA'] == 'No']
-wto_agp = df[df['WTO-AGP'] == 'No']
-ceta = df[df['CETA'] == 'No']
-cptpp = df[df['CPTPP'] == 'No']
+    val = val[val['agreement_type_code'] == x]
+    val = val.reset_index()
+    val = val[usecols]
+    print(val)
 
-
-nafta = nafta[nafta['agreement_type_code'] == 'NAFTA']
-ccfta = ccfta[ccfta['agreement_type_code'] == 'CCFTA']
-ccofta = ccofta[ccofta['agreement_type_code'] == 'CCoFTA']
-cpafta = cpafta[cpafta['agreement_type_code'] == 'CPaFTA']
-cpfta = cpfta[cpfta['agreement_type_code'] == 'CPFTA']
-ckfta = ckfta[ckfta['agreement_type_code'] == 'CKFTA']
-wto_agp = wto_agp[wto_agp['agreement_type_code'] == 'WTO-AGP']
-ceta = ceta[ceta['agreement_type_code'] == 'CETA']
-cptpp = cptpp[cptpp['agreement_type_code'] == 'CPTPP']
-none = df[df['agreement_type_code'] == '0']
-
-df_list = [nafta, ccfta, ccofta, cpafta, cpfta, ckfta, wto_agp, ceta, cptpp, none]
-
-for x in df_list:
-    x=x.reset_index()
-    x.drop('index', axis=1, inplace=True)
-
-    print(x)
-
-
-
-nafta.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/nafta.csv')
-ccfta.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ccfta.csv')
 
 
 

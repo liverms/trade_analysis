@@ -9,7 +9,8 @@ usecols=[
     'owner_org_title',
     'document_type_code',
     'agreement_type_code',
-    'procurement_id'
+    'procurement_id',
+    'limited_tendering_reason_code'
 ]
 #data types of columns
 dtype={
@@ -20,7 +21,8 @@ dtype={
     'owner_org_title': str,
     'document_type_code':str,
     'agreement_type_code': str,
-    'procurement_id': str
+    'procurement_id': str,
+    'limited_tendering_reason_code': str
 }
 #read in csv
 df = pd.read_csv(
@@ -92,6 +94,9 @@ def commodity_type_code(df_in):
         goods_letters = ['N', 'n', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
         unknown_letters = ['I', 'i', 'O', 'o', 'P', 'p', 'Q', 'q', 'Y', 'y', 'Z', 'z', '0']
+
+        df_in.loc[df_in['commodity_code'].isnull(), 'commodity_type_code'] = 'Unknown'
+
         for letter in service_letters:
             df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Services'
         for letter in goods_letters:
@@ -314,6 +319,16 @@ def owner_abrev(df_in):
         df_in.loc[df_in['abbreviation'].str.contains(t), 'abbreviation'] = a
 
     return df_in
+
+
+def limited_tendering_reason_code(df_in):
+    df_in['limited_tendering_reason_code'].fillna('00', inplace=True)
+    df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('0', '00')
+    df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('5', '05')
+
+
+    return df_in
+
 ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
 
 df = reporting_period(df)
@@ -321,16 +336,17 @@ df = reporting_period(df)
 years = ['2019', '2018', '2017']
 df = df[df['reporting_period'].isin(years)]
 
+df = limited_tendering_reason_code(df)
 df = owner_abrev(df)
 df = original_value(df)
 df = commodity_type_code(df)
-
 df = document_type_code(df)
 df = agreement_type_code(df)
 
-df = df[df['commodity_type_code'] != 'Goods']
-df = df[df['commodity_type_code'] != 'Services']
-df = df[df['commodity_type_code'] != 'Construction']
+
+# df = df[df['commodity_type_code'] != 'Goods']
+# df = df[df['commodity_type_code'] != 'Services']
+# df = df[df['commodity_type_code'] != 'Construction']
 
 
 print(df)
