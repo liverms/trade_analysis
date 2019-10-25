@@ -49,29 +49,30 @@ trade = [
     'CKFTA',
     'WTO-AGP',
     'CETA',
-    'CPTPP'
+    'CPTPP',
+    '0'
 ]
 '''
 1) For each trade agreement: take those rows where the entity is covered
 2) Only take rows where the limited tendering reason is None
-3) For each commodity and for each trade agreement compare value of the contract
+3) For each commodity and for each trade agreement keep the rows that are above threshold
 '''
 
 for x in trade:
-    i = df[df[x] == 'Yes']
-    i = i.reset_index()
-    i = i[usecols]
+    if x == '0':
+        i = df
+    else:
+        i = df[df[x] == 'Yes']
+        i = i.reset_index()
+        i = i[usecols]
 
-    i = i[i['limited_tendering_reason_code'] == '00']
+        i = i[i['limited_tendering_reason_code'] == '00']
 
-    commodities = ['Goods', 'Services', 'Construction']
-    for com in commodities:
-            dollar = thresholds[x].at[com]
-            i = i[(i['commodity_type_code'] == com) & (i['original_value'] >= dollar)]
-            print(x)
-            print(com)
-            print(dollar)
-            print(i)
+        commodities = ['Goods', 'Services', 'Construction']
+        for com in commodities:
+                dollar = thresholds[x].at[com]
+                i = i[(i['commodity_type_code'] == com) & (i['original_value'] >= dollar)]
+
     # for com in commodities:
     #     if x == '0':
     #         pass

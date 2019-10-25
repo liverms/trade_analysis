@@ -48,17 +48,36 @@ trade_agreements = [
     'CPTPP',
     '0'
 ]
+'''
+This loop searches for entities which are not covered by the agreement, the No
+filter the agreement type so that we have one df for each trade agreement and the procurements are only for that one.
+'''
 
+dict_df = {}
 for x in trade_agreements:
+    val = df[df['agreement_type_code'] == x]
+    # there is no zero in the columnts of df, but there is one in the trade list, this skips in error
     if x == '0':
-        val = df
+        pass
     else:
-        val = df[df[x] == 'No']
+        val = df[df['agreement_type_code'] == x]
+        if (val[x] == 'No') is True:
+            val = val[val[x] == 'No']
+            val['entities_misapplied'] = 'Y'
+        else:
+            val = val[val[x] == 'Yes']
+            val['entities_misapplied'] = 'N'
 
-    val = val[val['agreement_type_code'] == x]
-    val = val.reset_index()
-    val = val[usecols]
-    print(val)
+
+        val = val.reset_index()
+        val = val[usecols]
+        dict_df[x] = [val]
+        print(dict_df[x])
+
+val['entities_misapplied'] = val[val['']]
+print(dff)
+
+dff.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/misapply.csv')
 
 
 
