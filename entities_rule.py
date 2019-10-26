@@ -49,6 +49,8 @@ trade_agreements = [
     'CPTPP'
 ]
 agreement_codes = [
+    'CFTA',
+    '0',
     'NAFTA',
     'CCFTA',
     'CCoFTA',
@@ -59,47 +61,36 @@ agreement_codes = [
     'CUFTA',
     'WTO-AGP',
     'CETA',
-    'CPTPP',
-    'CFTA',
-    '0'
+    'CPTPP'
 ]
 '''
 There are 3 possible outcomes:
 1) Procurement not covered by a TA by an entity not covered ('Yes')
-2) Procurement not covered by a TA by an entity that is covered ('Maybe')
+2) Procurement not covered by a TA by an entity that is covered (default = 'Unknown')
 3) Procurement covered by a TA by an entity not covered ('No')
 4) Procurement covered by a TA by an entity covered ('Yes')
 
 '''
 
 df = df[df['agreement_type_code'].isin(agreement_codes)]
+df['entities_rule'] = 'Unknown'
 
-for x in agreement_codes:
-    i = df
-    i['entities_rule'] = 'Unknown'
-    if x == 'CFTA':
+i = df
+for y in agreement_codes:
+    if y == '0':
+        i.loc[(i['entities_rule'] == 'Unknown') & (i['CCFTA'] == 'No') & (i['CCoFTA'] == 'No')
+        & (i['CHFTA'] == 'No') & (i['CPaFTA'] == 'No') & (i['CPFTA'] == 'No')
+        & (i['CKFTA'] == 'No') & (i['CUFTA'] == 'No') & (i['WTO-AGP'] == 'No')
+        & (i['CETA'] == 'No') & (i['CPTPP'] == 'No'), 'entities_rule'] = 'Yes'
+    elif y == 'CFTA':
         pass
-    # there is no zero in the columns of df, but there is one in the trade list, this skips in error
-    elif x == '0':
-        # these are procurements that say they are not covered by a TA
-        # loop through the TA columns, if all say No then this is correct, else incorrect
-
-        i.loc[((i['NAFTA'] == 'No') & (i['CCFTA'] == 'No') & (i['CCoFTA'] == 'No') &
-              (i['CHFTA'] == 'No') & (i['CPaFTA'] == 'No') & (i['CPFTA'] == 'No') &
-              (i['CKFTA'] == 'No') & (i['CUFTA'] == 'No') & (i['WTO-AGP'] == 'No') &
-              (i['CETA'] == 'No') & (i['CPTPP'] == 'No')), 'entities_rule'] = 'Yes'
-
-        i.loc[((i['NAFTA'] == 'Yes') | (i['CCFTA'] == 'Yes') | (i['CCoFTA'] == 'Yes') |
-              (i['CHFTA'] == 'Yes') | (i['CPaFTA'] == 'Yes') | (i['CPFTA'] == 'Yes') |
-              (i['CKFTA'] == 'Yes') | (i['CUFTA'] == 'Yes') | (i['WTO-AGP'] == 'Yes') |
-              (i['CETA'] == 'Yes') | (i['CPTPP'] == 'Yes')), 'entities_rule'] = 'Maybe'
     else:
-        i.loc[(i['agreement_type_code'] == x) & (i[x] == 'No'), 'entities_rule'] = 'No'
-        i.loc[(i['agreement_type_code'] == x) & (i[x] == 'Yes'), 'entities_rule'] = 'Yes'
+        i.loc[(i['entities_rule'] == 'Unknown') & (i['agreement_type_code'] == y) &
+              (i[y] == 'Yes'), 'entities_rule'] = 'Yes'
+        i.loc[(i['agreement_type_code'] == y) & (i[y] == 'No'), 'entities_rule'] = 'No'
 
-print(i['entities_rule'].unique())
 
-
+i.to_csv('C:/Users/danli/documents/github/trade_analysis/entities_rule.csv')
 
 
 
