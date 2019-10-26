@@ -80,8 +80,7 @@ for y in agreement_codes:
     if y == '0':
         i.loc[(i['entities_rule'] == 'Unknown') & (i['CCFTA'] == 'No') & (i['CCoFTA'] == 'No')
         & (i['CHFTA'] == 'No') & (i['CPaFTA'] == 'No') & (i['CPFTA'] == 'No')
-        & (i['CKFTA'] == 'No') & (i['CUFTA'] == 'No') & (i['WTO-AGP'] == 'No')
-        & (i['CETA'] == 'No') & (i['CPTPP'] == 'No'), 'entities_rule'] = 'Yes'
+        & (i['CKFTA'] == 'No') & (i['CUFTA'] == 'No') & (i['WTO-AGP'] == 'No'), 'entities_rule'] = 'Yes'
     elif y == 'CFTA':
         pass
     else:
@@ -89,7 +88,7 @@ for y in agreement_codes:
               (i[y] == 'Yes'), 'entities_rule'] = 'Yes'
         i.loc[(i['agreement_type_code'] == y) & (i[y] == 'No'), 'entities_rule'] = 'No'
 
-
+i = i[i['entities_rule'] == 'No']
 i.to_csv('C:/Users/danli/documents/github/trade_analysis/entities_rule.csv')
 
 
