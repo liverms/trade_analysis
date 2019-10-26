@@ -75,57 +75,11 @@ for x in agreement_codes:
     for c in commodities:
         if x == '0':
             dollar = thresholds.loc[c].at['CFTA']
-            # i.loc[((i['agreement_type_code'] == x) & (i['commodity_type_code'] == c) & (i['original_value'] >= dollar)), 'thresholds'] = 'Unknown'
-            # i.loc[((i['agreement_type_code'] == x) & (i['commodity_type_code'] == c) & (i['original_value'] < dollar)), 'thresholds'] = 'Yes'
+            i.loc[((i['original_value'] > dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Unknown'
+            i.loc[((i['original_value'] < dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Yes'
         else:
             dollar = thresholds.loc[c].at[x]
-            print(dollar)
-            # i.loc[((i['agreement_type_code'] == x) & (i['commodity_type_code'] == c) & (i['original_value'] >= thresholds)), 'thresholds'] = 'Yes'
-            # i.loc[((i['agreement_type_code'] == x) & (i['commodity_type_code'] == c) & (i['original_value'] < thresholds)), 'thresholds'] = 'No'
-
-
+            i.loc[((i['original_value'] > dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Yes'
+            i.loc[((i['original_value'] < dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'No'
 
 i.to_csv('C:/Users/danli/documents/github/trade_analysis/df_thresholds.csv')
-        # i = i.loc[i[x] == 'Yes']
-        # i = i.reset_index()
-        # i = i[usecols]
-        #
-        # i = i[i['limited_tendering_reason_code'] == '00']
-        # print(i)
-        # commodities = ['Goods', 'Services', 'Construction']
-        # for com in commodities:
-        #         dollar = thresholds[x].at[com]
-        #         i = i[(i['commodity_type_code'] == com) & (i['original_value'] >= dollar)]
-
-    # for com in commodities:
-    #     if x == '0':
-    #         pass
-    #     else:
-    #         dollar = thresholds.loc['CFTA']
-    #         # val = val[(val['commodity_type_code'] == com)]
-    #         print(dollar)
- # & (i['original_value'] >= dollar)
- # & (val['original_value'] > thresholds.loc[x].at[1])
-#
-# for item in df_list:
-#     item = item[item['limited_tendering_reason_code'] != '00']
-#     item = item.reset_index()
-#     item.drop('index', axis=1, inplace=True)
-#     if item == cfta:
-#         item = item[(item['commodity_type_code'] == 'Goods') & (item['original_value'] > 25300)]
-#         item = item[(item['commodity_type_code'] == 'Services') & (item['original_value'] > 101100)]
-#         item = item[(item['commodity_type_code'] == 'Construction') & (item['original_value'] > 101100)]
-#     print(item)
-
-
-#
-#
-#
-#
-# none = none[none['limited_tendering_reason_code'] == '00']
-# none = none.loc[(none['commodity_type_code'] == 'Goods') & (none['original_value'] > 25300)]
-#
-#
-# print(none)
-# none.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/none.csv')
-# ccfta.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ccfta.csv')
