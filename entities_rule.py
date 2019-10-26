@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from collections import defaultdict
 
 usecols=[
@@ -25,12 +26,12 @@ dtype={
     'abbreviation': str
 }
 
-df = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv',
+df = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/df.csv',
                  usecols=usecols,
                  dtype=dtype
 )
 
-ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
+ent = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/entities_list.csv')
 
 df = df.merge(ent, how='outer', left_on='abbreviation', right_on='Abbreviation')
 
@@ -47,38 +48,56 @@ trade_agreements = [
     'CETA',
     'CPTPP'
 ]
+agreement_codes = [
+    'NAFTA',
+    'CCFTA',
+    'CCoFTA',
+    'CHFTA',
+    'CPaFTA',
+    'CPFTA',
+    'CKFTA',
+    'CUFTA',
+    'WTO-AGP',
+    'CETA',
+    'CPTPP',
+    'CFTA',
+    '0'
+]
 '''
-This loop searches for entities which are not covered by the agreement, the No
-filter the agreement type so that we have one df for each trade agreement and the procurements are only for that one.
+There are 3 possible outcomes:
+1) Procurement not covered by a TA by an entity not covered ('Yes')
+2) Procurement not covered by a TA by an entity that is covered ('Maybe')
+3) Procurement covered by a TA by an entity not covered ('No')
+4) Procurement covered by a TA by an entity covered ('Yes')
+
 '''
 
-df['entities_misapplied'] = ['Y' if val[x] == 'No']
-# dict_df = {}
-# for x in trade_agreements:
-#     val = df[df['agreement_type_code'] == x]
-#     # there is no zero in the columnts of df, but there is one in the trade list, this skips in error
-#     if x == '0':
-#         pass
-#     else:
-#         val = df[df['agreement_type_code'] == x]
-#         if (val[x] == 'No') is True:
-#             val = val[val[x] == 'No']
-#             val['entities_misapplied'] = 'Y'
-#         else:
-#             val = val[val[x] == 'Yes']
-#             val['entities_misapplied'] = 'N'
-#
-#
-#         val = val.reset_index()
-#         val = val[usecols]
-#         dict_df[x] = [val]
-#         print(dict_df[x])
-#
-# val['entities_misapplied'] = val[val['']]
-print(dff)
+df = df[df['agreement_type_code'].isin(agreement_codes)]
 
-dff.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/misapply.csv')
+for x in agreement_codes:
+    i = df
+    i['entities_rule'] = 'Unknown'
+    if x == 'CFTA':
+        pass
+    # there is no zero in the columns of df, but there is one in the trade list, this skips in error
+    elif x == '0':
+        # these are procurements that say they are not covered by a TA
+        # loop through the TA columns, if all say No then this is correct, else incorrect
 
+        i.loc[((i['NAFTA'] == 'No') & (i['CCFTA'] == 'No') & (i['CCoFTA'] == 'No') &
+              (i['CHFTA'] == 'No') & (i['CPaFTA'] == 'No') & (i['CPFTA'] == 'No') &
+              (i['CKFTA'] == 'No') & (i['CUFTA'] == 'No') & (i['WTO-AGP'] == 'No') &
+              (i['CETA'] == 'No') & (i['CPTPP'] == 'No')), 'entities_rule'] = 'Yes'
+
+        i.loc[((i['NAFTA'] == 'Yes') | (i['CCFTA'] == 'Yes') | (i['CCoFTA'] == 'Yes') |
+              (i['CHFTA'] == 'Yes') | (i['CPaFTA'] == 'Yes') | (i['CPFTA'] == 'Yes') |
+              (i['CKFTA'] == 'Yes') | (i['CUFTA'] == 'Yes') | (i['WTO-AGP'] == 'Yes') |
+              (i['CETA'] == 'Yes') | (i['CPTPP'] == 'Yes')), 'entities_rule'] = 'Maybe'
+    else:
+        i.loc[(i['agreement_type_code'] == x) & (i[x] == 'No'), 'entities_rule'] = 'No'
+        i.loc[(i['agreement_type_code'] == x) & (i[x] == 'Yes'), 'entities_rule'] = 'Yes'
+
+print(i['entities_rule'].unique())
 
 
 
