@@ -42,16 +42,16 @@ for col in usecols:
     df[col] = df[col].str.strip()
 
 def document_type_code(df_in):
-    fix_doc_type = ['c', 'C ', 'C']
-    for error in fix_doc_type:
-        df_in['document_type_code'] = df_in['document_type_code'].str.replace(error, 'Contract')
+    c_type = ['c', 'C ', 'C']
+    for error in c_type:
+        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Contract')
 
     fix_doc_type = ['A']
     for error in fix_doc_type:
-        df_in['document_type_code'] = df_in['document_type_code'].str.replace(error, 'Amendment')
+        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Amendment')
 
     doc_type = ['Contract', 'Amendment', 'SOSA']
-    df_in = df_in[df_in['document_type_code']].isin(doc_type)
+    df_in = df_in[df_in['document_type_code'].isin(doc_type)]
     return df_in
 
 
@@ -65,7 +65,6 @@ def original_value(df_in):
 
 
 def commodity_type_code(df_in):
-    df_in.dropna(inplace=True)
     # Change coding for Goods to string Goods
     fix_goods = [
         'g',
@@ -113,7 +112,7 @@ def commodity_type_code(df_in):
         for letter in unknown_letters:
             df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Unknown'
 
-    df_in = df_in[df_in['commodity_code']].isin(commodity_codes)
+    df_in = df_in[df_in['commodity_type_code'].isin(commodity_codes)]
 
     return df_in
 
@@ -246,7 +245,7 @@ def agreement_type_code(df_in):
         'CETA',
         'CPTPP'
     ]
-    df_in = df_in[df_in['agreement_code']].isin(agreement_codes)
+    df_in = df_in[df_in['agreement_type_code'].isin(agreement_codes)]
 
     return df_in
 
@@ -402,28 +401,35 @@ def commodity_code(df_in):
     # df_in = df_in[df_in['commodity_code'].isin(lookup_gsin_unspsc['gsin'].unique())]
 
     return df_in
-print('reporting period below')
+
+print('reporting period')
 print(df)
 df = reporting_period(df)
+df.dropna(inplace=True)
 
 years = ['2019', '2018', '2017']
 df = df[df['reporting_period'].isin(years)]
+df.dropna(inplace=True)
 
 print('commodity_code below')
 print(df)
 df=commodity_code(df)
+df.dropna(inplace=True)
 
 print('limited tendering below')
 print(df)
 df = limited_tendering_reason_code(df)
+df.dropna(inplace=True)
 
 print('owner_abrev')
 print(df)
 df = owner_abrev(df)
+df.dropna(inplace=True)
 
 print('original val below')
 print(df)
 df = original_value(df)
+df.dropna(inplace=True)
 
 print('commodity type code below')
 print(df)
@@ -432,10 +438,15 @@ df = commodity_type_code(df)
 print('doc type below')
 print(df)
 df = document_type_code(df)
+df.dropna(inplace=True)
 
 print('agreement type below')
 print(df)
 df = agreement_type_code(df)
+df.dropna(inplace=True)
+
+get_contract = ['Contract']
+df=df[df['document_type_code'].isin(get_contract)]
 
 print(df)
 # pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
