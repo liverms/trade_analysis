@@ -26,7 +26,7 @@ dtype={
 }
 #read in csv
 df = pd.read_csv(
-    'C:/Users/slivermo/Desktop/contracts_original.csv',
+    'C:/Users/danli/documents/github/trade_analysis/df.csv',
     usecols=usecols,
     dtype=dtype
 )
@@ -329,19 +329,37 @@ def limited_tendering_reason_code(df_in):
 
     return df_in
 
-ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
 
-df = reporting_period(df)
 
-years = ['2019', '2018', '2017']
-df = df[df['reporting_period'].isin(years)]
 
-df = limited_tendering_reason_code(df)
-df = owner_abrev(df)
-df = original_value(df)
-df = commodity_type_code(df)
-df = document_type_code(df)
-df = agreement_type_code(df)
+
+
+lookup_gsin_unspsc = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/lookup_gsin_unspsc.csv',
+                                 usecols=['gsin', 'unspsc_code'],
+                                 dtype={'gsin': str,
+                                        'unspsc_code': str})
+ent = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/entities_list.csv')
+
+lookup = dict(zip(lookup_gsin_unspsc['unspsc_code'], lookup_gsin_unspsc['gsin']))
+
+
+for key, value in lookup.items():
+    df['commodity_code'].replace(key, value, inplace=True)
+
+
+    # for key, value in agreement_codes.items():
+    #     df_in['agreement_type_code'].replace(key, value, inplace=True)
+# df = reporting_period(df)
+#
+# years = ['2019', '2018', '2017']
+# df = df[df['reporting_period'].isin(years)]
+
+# df = limited_tendering_reason_code(df)
+# df = owner_abrev(df)
+# df = original_value(df)
+# df = commodity_type_code(df)
+# df = document_type_code(df)
+# df = agreement_type_code(df)
 
 
 # df = df[df['commodity_type_code'] != 'Goods']
@@ -349,8 +367,8 @@ df = agreement_type_code(df)
 # df = df[df['commodity_type_code'] != 'Construction']
 
 
-print(df)
+
 # pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
 
-ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
-df.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv')
+# ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
+# df.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv')
