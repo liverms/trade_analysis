@@ -42,9 +42,9 @@ lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_gsin_unspsc.c
                                  }
                                  )
 
-ent = pd.read_csv('entities_list.csv')
+ent = pd.read_csv('df_entities.csv')
 
-gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
+gsin_trade_map = pd.read_csv('df_commodities.csv',
                              usecols=[
                                           'commodity_code',
                                           'NAFTA',
@@ -395,7 +395,7 @@ def owner_abrev(df_in):
         'Western Economic Diversification Canada': 'WD',
     }
 
-    df['abbreviation'] = df['owner_org_title']
+    df_in['abbreviation'] = df_in['owner_org_title']
 
     for t, a in abrev.items():
         df_in.loc[df_in['abbreviation'].str.contains(t), 'abbreviation'] = a

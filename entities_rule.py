@@ -31,7 +31,7 @@ df = pd.read_csv('df.csv',
                  dtype=dtype
 )
 
-ent = pd.read_csv('entities_list.csv')
+ent = pd.read_csv('df_entities.csv')
 
 df = df.merge(ent, how='outer', left_on='abbreviation', right_on='Abbreviation')
 

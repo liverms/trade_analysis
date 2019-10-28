@@ -32,7 +32,7 @@ df = pd.read_csv('df.csv',
                  dtype=dtype
 )
 
-gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
+gsin_trade_map = pd.read_csv('df_commodities.csv',
                              usecols=[
                                           'commodity_code',
                                           'NAFTA',
@@ -43,6 +43,7 @@ gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
                                           'CPFTA',
                                           'CKFTA',
                                           'WTO-AGP',
+                                            'CUFTA',
                                           'CETA',
                                           'CPTPP',
                                           'Type'
@@ -57,6 +58,7 @@ gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
                                           'CPFTA': str,
                                           'CKFTA': str,
                                           'WTO-AGP': str,
+                                    'CUFTA': str,
                                           'CETA': str,
                                           'CPTPP': str,
                                           'Type': str

@@ -36,7 +36,7 @@ thresholds = pd.read_csv('thresholds.csv')
 thresholds.set_index('Type', inplace=True)
 
 
-gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
+gsin_trade_map = pd.read_csv('df_commodities.csv',
                              usecols=[
                                           'commodity_code',
                                           'NAFTA',
@@ -67,7 +67,8 @@ gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
                                       }
                              )
 
-
+gsin_trade_map['CUFTA'] = gsin_trade_map['WTO-AGP']
+gsin_trade_map.to_csv('df_commodities.csv')
 df = df.merge(gsin_trade_map, how='left', left_on='commodity_code', right_on='commodity_code')
 
 trade_agreements = [
@@ -78,6 +79,7 @@ trade_agreements = [
     'CPaFTA',
     'CPFTA',
     'CKFTA',
+    'CUFTA'
     'WTO-AGP',
     'CETA',
     'CPTPP'
