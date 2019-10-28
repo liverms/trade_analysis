@@ -142,45 +142,45 @@ years = ['2019', '2018', '2017']
 df = df[df['reporting_period'].isin(years)]
 df.dropna(inplace=True)
 
-# df=clean.commodity_code(df, gsin_unspsc_map, df_commodities)
-# print('commodity_code below')
-# print(df)
-# df.dropna(inplace=True)
-#
-# df = clean.limited_tendering_reason_code(df)
-# print('limited tendering below')
-# print(df)
-# df.dropna(inplace=True)
-#
-# df = clean.owner_abrev(df)
-# print('owner_abrev')
-# print(df)
-# df.dropna(inplace=True)
-# #
+df=clean.commodity_code(df, gsin_unspsc_map, df_commodities)
+print('commodity_code below')
+print(df)
+df.dropna(inplace=True)
+
+df = clean.limited_tendering_reason_code(df)
+print('limited tendering below')
+print(df)
+df.dropna(inplace=True)
+
+df = clean.owner_abrev(df)
+print('owner_abrev')
+print(df)
+df.dropna(inplace=True)
+
 df = clean.original_value(df)
 print('original val below')
 print(df)
 df.dropna(inplace=True)
-#
-# df = clean.commodity_type_code(df)
-# print('commodity type code below')
-# print(df)
-#
-# df = clean.agreement_type_code(df, agreement_codes)
-# print('agreement type below')
-# print(df)
-# df.dropna(inplace=True)
-#
-# ## Analysis
-# df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
-# print('entities rule')
-# print(df)
-# df.dropna(inplace=True)
 
-# df = rules.limited_tendering(df, agreement_codes)
-# print('limited tendering')
-# print(df)
-# df.dropna(inplace=True)
+df = clean.commodity_type_code(df)
+print('commodity type code below')
+print(df)
+
+df = clean.agreement_type_code(df, agreement_codes)
+print('agreement type below')
+print(df)
+df.dropna(inplace=True)
+
+# ## Analysis
+df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
+print('entities rule')
+print(df)
+df.dropna(inplace=True)
+
+df = rules.limited_tendering(df, agreement_codes)
+print('limited tendering')
+print(df)
+df.dropna(inplace=True)
 
 df = rules.thresholds(df, df_thresholds, agreement_codes)
 print('thresholds')

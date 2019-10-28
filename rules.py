@@ -80,29 +80,29 @@ def thresholds(df_in, df_thresholds, agreement_codes):
     '''
     df_in['thresholds'] = 'Unknown'
     commodities = ['Goods', 'Services', 'Construction']
-    print(df_in['original_value'].dtype)
+
     for x in agreement_codes:
         for c in commodities:
-            print(df_in.loc[df_in['original_value']])
+
             if x == '0':
                 dollar = df_thresholds.loc[c].at['CFTA']
-                print(df_in.loc[df_in['original_value']])
-                df_in[((df_in['original_value'] > dollar) &
+
+                df_in.loc[((df_in['original_value'] > dollar) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Unknown'
-                df_in[((df_in['original_value'] < dollar) &
+                df_in.loc[((df_in['original_value'] < dollar) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Yes'
             else:
                 dollar = df_thresholds.loc[c].at[x]
-                print(df_in.loc[df_in['original_value']])
-                df_in[((df_in['original_value'] > dollar) &
+
+                df_in.loc[((df_in['original_value'] > dollar) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Yes'
-                df_in[((df_in['original_value'] < dollar) &
+                df_in.loc[((df_in['original_value'] < dollar) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'No'

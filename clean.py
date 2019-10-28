@@ -21,8 +21,7 @@ def original_value(df_in):
     df_in[col] = df_in[col].str.replace('$', '')
     df_in[col] = df_in[col].str.replace(',', '')
     df_in[col].str.strip()
-    df_in[col].astype(float)
-    print(df_in[col].dtype)
+    df_in[col] = df_in[col].astype(float)
     return df_in
 
 
