@@ -32,7 +32,7 @@ df = pd.read_csv('df.csv',
                  dtype=dtype
 )
 
-thresholds = pd.read_csv('thresholds.csv')
+thresholds = pd.read_csv('df_thresholds.csv')
 thresholds.set_index('Type', inplace=True)
 
 

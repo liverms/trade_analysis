@@ -1,84 +1,5 @@
 import pandas as pd
-import numpy as np
 
-usecols=[
-    'original_value',
-    'commodity_type_code',
-    'commodity_code',
-    'reporting_period',
-    'owner_org_title',
-    'document_type_code',
-    'agreement_type_code',
-    'procurement_id',
-    'limited_tendering_reason_code'
-]
-#data types of columns
-dtype={
-    'commodity_type_code': str,
-    'commodity_code': str,
-    'original_value': object,
-    'reporting_period': str,
-    'owner_org_title': str,
-    'document_type_code':str,
-    'agreement_type_code': str,
-    'procurement_id': str,
-    'limited_tendering_reason_code': str
-}
-#read in csv
-df = pd.read_csv(
-    'C:/Users/slivermo/desktop/contracts_original.csv',
-    usecols=usecols,
-    dtype=dtype
-)
-
-lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_gsin_unspsc.csv',
-                                 usecols=[
-                                     'gsin',
-                                     'unspsc_code'
-                                 ],
-                                 dtype={
-                                    'gsin': str,
-                                    'unspsc_code': str
-                                 }
-                                 )
-
-ent = pd.read_csv('df_entities.csv')
-
-gsin_trade_map = pd.read_csv('df_commodities.csv',
-                             usecols=[
-                                          'commodity_code',
-                                          'NAFTA',
-                                          'CCFTA',
-                                          'CCoFTA',
-                                          'CHFTA',
-                                          'CPaFTA',
-                                          'CPFTA',
-                                          'CKFTA',
-                                          'WTO-AGP',
-                                          'CETA',
-                                          'CPTPP',
-                                          'Type'
-                                      ],
-                             dtype={
-                                          'commodity_code': str,
-                                          'NAFTA': str,
-                                          'CCFTA': str,
-                                          'CCoFTA': str,
-                                          'CHFTA': str,
-                                          'CPaFTA': str,
-                                          'CPFTA': str,
-                                          'CKFTA': str,
-                                          'WTO-AGP': str,
-                                          'CETA': str,
-                                          'CPTPP': str,
-                                          'Type': str
-                                      }
-                             )
-
-
-#get rid of empty cells and NA
-for col in usecols:
-    df[col] = df[col].str.strip()
 
 def document_type_code(df_in):
     col = 'document_type_code'
@@ -101,7 +22,7 @@ def original_value(df_in):
     df_in[col] = df_in[col].str.replace(',', '')
     df_in[col].str.strip()
     df_in[col].astype(float)
-
+    print(df_in[col].dtype)
     return df_in
 
 
@@ -240,7 +161,7 @@ def reporting_period(df_in):
     return df_in
 
 
-def agreement_type_code(df_in):
+def agreement_type_code(df_in, agreement_codes):
     col = 'agreement_type_code'
     pd_codes = {
         'Y': 'WTO-AGP/NAFTA/CFTA/CCFTA/CCoFTA/CHFTA/CPaFTA/CPFTA/CKFTA',
@@ -285,22 +206,7 @@ def agreement_type_code(df_in):
     df_in[col] = df_in[col].str.split('/').tolist()
     df_in = df_in.explode(col)
 
-    trade_codes = [
-        'CFTA',
-        '0',
-        'NAFTA',
-        'CCFTA',
-        'CCoFTA',
-        'CHFTA',
-        'CPaFTA',
-        'CPFTA',
-        'CKFTA',
-        'CUFTA',
-        'WTO-AGP',
-        'CETA',
-        'CPTPP'
-    ]
-    df_in = df_in[df_in['agreement_type_code'].isin(trade_codes)]
+    df_in = df_in[df_in['agreement_type_code'].isin(agreement_codes)]
 
     return df_in
 
@@ -433,10 +339,10 @@ def limited_tendering_reason_code(df_in):
     return df_in
 
 
-def commodity_code(df_in):
+def commodity_code(df_in, gsin_unspsc_map, df_commodities):
     col = 'commodity_code'
-    lookup = dict(zip(lookup_gsin_unspsc['unspsc_code'], lookup_gsin_unspsc['gsin']))
-    unique_gsin = gsin_trade_map[col].unique().astype(str)
+    lookup = dict(zip(gsin_unspsc_map['unspsc_code'], gsin_unspsc_map['gsin']))
+    unique_gsin = df_commodities[col].unique().astype(str)
     unique_com = df_in[col].unique().astype(str)
 
     for key, value in lookup.items():
@@ -459,48 +365,3 @@ def commodity_code(df_in):
 
     return df_in
 
-print('reporting period')
-print(df)
-df = reporting_period(df)
-df.dropna(inplace=True)
-
-years = ['2019', '2018', '2017']
-df = df[df['reporting_period'].isin(years)]
-df.dropna(inplace=True)
-
-print('commodity_code below')
-print(df)
-df=commodity_code(df)
-df.dropna(inplace=True)
-
-print('limited tendering below')
-print(df)
-df = limited_tendering_reason_code(df)
-df.dropna(inplace=True)
-
-print('owner_abrev')
-print(df)
-df = owner_abrev(df)
-df.dropna(inplace=True)
-
-print('original val below')
-print(df)
-df = original_value(df)
-df.dropna(inplace=True)
-
-print('commodity type code below')
-print(df)
-df = commodity_type_code(df)
-
-print('doc type below')
-print(df)
-df = document_type_code(df)
-df.dropna(inplace=True)
-
-print('agreement type below')
-print(df)
-df = agreement_type_code(df)
-df.dropna(inplace=True)
-
-print(df)
-df.to_csv('df.csv')
