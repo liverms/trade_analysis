@@ -1,0 +1,144 @@
+,0
+NAFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3            46321.86            Services  ...     3000599798         AAFC
+4           508500.00            Services  ...     7100000500         AAFC
+...               ...                 ...  ...            ...          ...
+22058       617974.40            Services  ...  51019-18-4001          VAC
+22059       589781.02            Services  ...  51019-18-4016          VAC
+22060       340212.01            Services  ...  51019-18-1008          VAC
+22061      9775000.00            Services  ...  51019-18-4012          VAC
+22062       567500.00            Services  ...  51019-19-1005          VAC
+
+[22063 rows x 9 columns]"
+CCFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+17212       617974.40            Services  ...  51019-18-4001          VAC
+17213       589781.02            Services  ...  51019-18-4016          VAC
+17214       340212.01            Services  ...  51019-18-1008          VAC
+17215      9775000.00            Services  ...  51019-18-4012          VAC
+17216       567500.00            Services  ...  51019-19-1005          VAC
+
+[17217 rows x 9 columns]"
+CCoFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+17131       617974.40            Services  ...  51019-18-4001          VAC
+17132       589781.02            Services  ...  51019-18-4016          VAC
+17133       340212.01            Services  ...  51019-18-1008          VAC
+17134      9775000.00            Services  ...  51019-18-4012          VAC
+17135       567500.00            Services  ...  51019-19-1005          VAC
+
+[17136 rows x 9 columns]"
+CHFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+17256       617974.40            Services  ...  51019-18-4001          VAC
+17257       589781.02            Services  ...  51019-18-4016          VAC
+17258       340212.01            Services  ...  51019-18-1008          VAC
+17259      9775000.00            Services  ...  51019-18-4012          VAC
+17260       567500.00            Services  ...  51019-19-1005          VAC
+
+[17261 rows x 9 columns]"
+CPaFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+17131       617974.40            Services  ...  51019-18-4001          VAC
+17132       589781.02            Services  ...  51019-18-4016          VAC
+17133       340212.01            Services  ...  51019-18-1008          VAC
+17134      9775000.00            Services  ...  51019-18-4012          VAC
+17135       567500.00            Services  ...  51019-19-1005          VAC
+
+[17136 rows x 9 columns]"
+CPFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+16453       617974.40            Services  ...  51019-18-4001          VAC
+16454       589781.02            Services  ...  51019-18-4016          VAC
+16455       340212.01            Services  ...  51019-18-1008          VAC
+16456      9775000.00            Services  ...  51019-18-4012          VAC
+16457       567500.00            Services  ...  51019-19-1005          VAC
+
+[16458 rows x 9 columns]"
+CKFTA,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+17674       617974.40            Services  ...  51019-18-4001          VAC
+17675       589781.02            Services  ...  51019-18-4016          VAC
+17676       340212.01            Services  ...  51019-18-1008          VAC
+17677      9775000.00            Services  ...  51019-18-4012          VAC
+17678       567500.00            Services  ...  51019-19-1005          VAC
+
+[17679 rows x 9 columns]"
+CUFTA,"Empty DataFrame
+Columns: [original_value, commodity_type_code, commodity_code, reporting_period, owner_org_title, document_type_code, agreement_type_code, procurement_id, abbreviation]
+Index: []"
+WTO-AGP,"       original_value commodity_type_code  ... procurement_id abbreviation
+0           282500.00            Services  ...     3000549710         AAFC
+1           320920.00            Services  ...     3000551662         AAFC
+2           111983.00            Services  ...     3000598932         AAFC
+3           508500.00            Services  ...     7100000500         AAFC
+4           976320.00            Services  ...     7100000495         AAFC
+...               ...                 ...  ...            ...          ...
+16078       617974.40            Services  ...  51019-18-4001          VAC
+16079       589781.02            Services  ...  51019-18-4016          VAC
+16080       340212.01            Services  ...  51019-18-1008          VAC
+16081      9775000.00            Services  ...  51019-18-4012          VAC
+16082       567500.00            Services  ...  51019-19-1005          VAC
+
+[16083 rows x 9 columns]"
+CETA,"      original_value commodity_type_code  ...   procurement_id abbreviation
+0           82388.15            Services  ...        20180811B         AAFC
+1          839695.32            Services  ...        20181171A         AAFC
+2           66924.27               Goods  ...        20180665A         AAFC
+3          455133.17            Services  ...       3000666632         AAFC
+4          169500.00            Services  ...       3000669763         AAFC
+...              ...                 ...  ...              ...          ...
+2390         9173.51            Services  ...  0A160614381101P          VAC
+2391        11626.81            Services  ...  8A171017857604P          VAC
+2392        22025.03               Goods  ...  0H180807511806P          VAC
+2393        14785.67               Goods  ...  0H180824511802P          VAC
+2394       754966.09            Services  ...    51019-18-1003          VAC
+
+[2395 rows x 9 columns]"
+CPTPP,"     original_value commodity_type_code  ... procurement_id abbreviation
+0          58432.50            Services  ...     3000685976         AAFC
+1          58432.50            Services  ...     3000685976         AAFC
+2          27342.00            Services  ...     3000686711         AAFC
+3          70977.56            Services  ...     3000686725         AAFC
+4          51548.34            Services  ...     3000686743         AAFC
+..              ...                 ...  ...            ...          ...
+481      1200000.00            Services  ...     2406A19779          TBS
+482      1200000.00            Services  ...     2406A19781          TBS
+483       800000.00            Services  ...     2406B19780          TBS
+484       209309.90            Services  ...   T8080-180647           TC
+485       101700.00            Services  ...   T8080-180168           TC
+
+[486 rows x 9 columns]"
