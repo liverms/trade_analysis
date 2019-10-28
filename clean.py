@@ -32,18 +32,48 @@ df = pd.read_csv(
 )
 
 lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_gsin_unspsc.csv',
-                                 usecols=['gsin', 'unspsc_code'],
-                                 dtype={'gsin': str,
-                                        'unspsc_code': str})
-ent = pd.read_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/entities_list.csv')
+                                 usecols=[
+                                     'gsin',
+                                     'unspsc_code'
+                                 ],
+                                 dtype={
+                                    'gsin': str,
+                                    'unspsc_code': str
+                                 }
+                                 )
 
-gsin_trade_agreements = pd.read_excel('C:/Users/slivermo/pycharmprojects/trade_analysis/Trade_Agreement_Mapping.xlsx',
-                                      sheet_name='Sheet3',
-                                      usecols=[
-                                          'GSIN CODE',
+ent = pd.read_csv('entities_list.csv')
 
-                                      ]
-                                      )
+gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
+                             usecols=[
+                                          'commodity_code',
+                                          'NAFTA',
+                                          'CCFTA',
+                                          'CCoFTA',
+                                          'CHFTA',
+                                          'CPaFTA',
+                                          'CPFTA',
+                                          'CKFTA',
+                                          'WTO-AGP',
+                                          'CETA',
+                                          'CPTPP',
+                                          'Type'
+                                      ],
+                             dtype={
+                                          'commodity_code': str,
+                                          'NAFTA': str,
+                                          'CCFTA': str,
+                                          'CCoFTA': str,
+                                          'CHFTA': str,
+                                          'CPaFTA': str,
+                                          'CPFTA': str,
+                                          'CKFTA': str,
+                                          'WTO-AGP': str,
+                                          'CETA': str,
+                                          'CPTPP': str,
+                                          'Type': str
+                                      }
+                             )
 
 
 #get rid of empty cells and NA
@@ -51,29 +81,32 @@ for col in usecols:
     df[col] = df[col].str.strip()
 
 def document_type_code(df_in):
+    col = 'document_type_code'
     c_type = ['c', 'C ', 'C']
     for error in c_type:
-        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Contract')
+        df_in[col] = df_in[col].replace(error, 'Contract')
 
     fix_doc_type = ['A']
     for error in fix_doc_type:
-        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Amendment')
+        df_in[col] = df_in[col].replace(error, 'Amendment')
 
     doc_type = ['Contract', 'Amendment', 'SOSA']
-    df_in = df_in[df_in['document_type_code'].isin(doc_type)]
+    df_in = df_in[df_in[col].isin(doc_type)]
     return df_in
 
 
 def original_value(df_in):
-    df_in['original_value'] = df_in['original_value'].str.replace('$', '')
-    df_in['original_value'] = df_in['original_value'].str.replace(',', '')
-    df_in['original_value'].str.strip()
-    df_in['original_value'].astype(float)
+    col = 'original_value'
+    df_in[col] = df_in[col].str.replace('$', '')
+    df_in[col] = df_in[col].str.replace(',', '')
+    df_in[col].str.strip()
+    df_in[col].astype(float)
 
     return df_in
 
 
 def commodity_type_code(df_in):
+    col = 'commodity_type_code'
     # Change coding for Goods to string Goods
     fix_goods = [
         'g',
@@ -84,7 +117,7 @@ def commodity_type_code(df_in):
         'G'
     ]
     for error in fix_goods:
-        df_in['commodity_type_code'] = df_in['commodity_type_code'].str.replace(error, 'Goods')
+        df_in[col] = df_in[col].str.replace(error, 'Goods')
 
     #change variations of services to string Services
     fix_services = [
@@ -95,38 +128,48 @@ def commodity_type_code(df_in):
         'S'
     ]
     for error in fix_services:
-        df_in['commodity_type_code'] = df_in['commodity_type_code'].str.replace(error, 'Services')
+        df_in[col] = df_in[col].str.replace(error, 'Services')
 
     # change coding of construction to string Construction
     fix_construction = ['c', 'C']
     for error in fix_construction:
-        df_in['commodity_type_code'] = df_in['commodity_type_code'].str.replace(error, 'Contruction')
+        df_in[col] = df_in[col].str.replace(error, 'Contruction')
 
     commodity_codes = ['Goods', 'Services', 'Construction']
-    if df['commodity_type_code'].isin(commodity_codes) is True:
+
+
+    if df_in[col].isin(commodity_codes) is True:
         pass
     else:
-        service_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                           'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'r', 's', 't', 'u', 'v', 'w', 'x']
-        goods_letters = ['N', 'n', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        services = ['A', 'B', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'R', 'S', 'T', 'U', 'V', 'W',
+                           'X',
+                           'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'r', 's', 't', 'u', 'v', 'w',
+                           'x']
+        goods = ['N', 'n', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+        construction = ['51']
 
         unknown_letters = ['I', 'i', 'O', 'o', 'P', 'p', 'Q', 'q', 'Y', 'y', 'Z', 'z', '0']
 
         df_in.loc[df_in['commodity_code'].isnull(), 'commodity_type_code'] = 'Unknown'
 
-        for letter in service_letters:
-            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Services'
-        for letter in goods_letters:
-            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Goods'
-        for letter in unknown_letters:
-            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Unknown'
+        for k in services:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == k, col] = 'Services'
+        for k in goods:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == k, col] = 'Goods'
+        for k in construction:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 2) == k, col] = 'Construction'
+        for k in unknown_letters:
+            df_in.loc[df_in['commodity_code'].str.slice(0, 1) == k, col] = 'Unknown'
 
-    df_in = df_in[df_in['commodity_type_code'].isin(commodity_codes)]
+
+    df_in = df_in[df_in[col].isin(commodity_codes)]
 
     return df_in
 
 
 def reporting_period(df_in):
+    col = 'reporting_period'
     #fix reporting period of 2016
     fix_2016 = [
         '2016-2017-Q1',
@@ -142,7 +185,7 @@ def reporting_period(df_in):
         'C-2016'
     ]
     for error in fix_2016:
-        df_in['reporting_period'] = df_in['reporting_period'].str.replace(error, '2016')
+        df_in[col] = df_in[col].str.replace(error, '2016')
 
     #fix reporting period for 2017
     fix_2017 = [
@@ -163,7 +206,7 @@ def reporting_period(df_in):
         '2017-2018'
     ]
     for error in fix_2017:
-        df_in['reporting_period'] = df_in['reporting_period'].str.replace(error, '2017')
+        df_in[col] = df_in[col].str.replace(error, '2017')
 
     #fix reporting period 2018
     fix_2018 = [
@@ -179,7 +222,7 @@ def reporting_period(df_in):
         '2018-2019'
     ]
     for error in fix_2018:
-        df_in['reporting_period'] = df_in['reporting_period'].str.replace(error, '2018')
+        df_in[col] = df_in[col].str.replace(error, '2018')
 
     #fix reporting period for 2019
     fix_2019 = [
@@ -190,13 +233,16 @@ def reporting_period(df_in):
         '2019-2020'
     ]
     for error in fix_2019:
-        df_in['reporting_period'] = df_in['reporting_period'].str.replace(error, '2019')
+        df_in[col] = df_in[col].str.replace(error, '2019')
 
+    years = ['2016', '2017', '2018', '2019']
+    df_in = df_in[df_in[col].isin(years)]
     return df_in
 
 
 def agreement_type_code(df_in):
-    agreement_codes = {
+    col = 'agreement_type_code'
+    pd_codes = {
         'Y': 'WTO-AGP/NAFTA/CFTA/CCFTA/CCoFTA/CHFTA/CPaFTA/CPFTA/CKFTA',
         'X': 'WTO-AGP/CFTA/CCFTA/CKFTA',
         'C': 'NAFTA/CFTA',
@@ -233,13 +279,13 @@ def agreement_type_code(df_in):
         'AZ': 'CFTA/CKFTA/WTO-AGP/CPTPP'
     }
 
-    for key, value in agreement_codes.items():
-        df_in['agreement_type_code'].replace(key, value, inplace=True)
+    for key, value in pd_codes.items():
+        df_in[col].replace(key, value, inplace=True)
 
-    df_in['agreement_type_code'] = df_in['agreement_type_code'].str.split('/').tolist()
-    df_in = df_in.explode('agreement_type_code')
+    df_in[col] = df_in[col].str.split('/').tolist()
+    df_in = df_in.explode(col)
 
-    agreement_codes = [
+    trade_codes = [
         'CFTA',
         '0',
         'NAFTA',
@@ -254,7 +300,7 @@ def agreement_type_code(df_in):
         'CETA',
         'CPTPP'
     ]
-    df_in = df_in[df_in['agreement_type_code'].isin(agreement_codes)]
+    df_in = df_in[df_in['agreement_type_code'].isin(trade_codes)]
 
     return df_in
 
@@ -358,9 +404,10 @@ def owner_abrev(df_in):
 
 
 def limited_tendering_reason_code(df_in):
-    df_in['limited_tendering_reason_code'].fillna('00', inplace=True)
-    df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('0', '00')
-    df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('5', '05')
+    col = 'limited_tendering_reason_code'
+    df_in[col].fillna('00', inplace=True)
+    df_in[col] = df_in[col].replace('0', '00')
+    df_in[col] = df_in[col].replace('5', '05')
 
     limited_tendering_reason = [
         '00',
@@ -381,18 +428,19 @@ def limited_tendering_reason_code(df_in):
         '87',
         '85'
     ]
-    df_in = df_in[df_in['limited_tendering_reason_code'].isin(limited_tendering_reason)]
+    df_in = df_in[df_in[col].isin(limited_tendering_reason)]
 
     return df_in
 
 
 def commodity_code(df_in):
+    col = 'commodity_code'
     lookup = dict(zip(lookup_gsin_unspsc['unspsc_code'], lookup_gsin_unspsc['gsin']))
-    unique_gsin = lookup_gsin_unspsc['gsin'].unique().astype(str)
-    unique_com = df_in['commodity_code'].unique().astype(str)
+    unique_gsin = gsin_trade_map[col].unique().astype(str)
+    unique_com = df_in[col].unique().astype(str)
 
     for key, value in lookup.items():
-        df_in['commodity_code'].replace(key, value, inplace=True)
+        df_in[col].replace(key, value, inplace=True)
 
     compare={}
     for x in unique_com:
@@ -405,9 +453,9 @@ def commodity_code(df_in):
                 pass
 
     for key, value in compare.items():
-        df_in['commodity_code'].replace(key, value, inplace=True)
-    #
-    # df_in = df_in[df_in['commodity_code'].isin(lookup_gsin_unspsc['gsin'].unique())]
+        df_in[col].replace(key, value, inplace=True)
+
+    df_in = df_in[df_in[col].isin(unique_gsin)]
 
     return df_in
 
@@ -454,11 +502,5 @@ print(df)
 df = agreement_type_code(df)
 df.dropna(inplace=True)
 
-get_contract = ['Contract']
-df=df[df['document_type_code'].isin(get_contract)]
-
 print(df)
-# pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
-
-# ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
-df.to_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/test.csv')
+df.to_csv('df.csv')

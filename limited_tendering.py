@@ -28,7 +28,7 @@ dtype={
     'limited_tendering_reason_code': str
 }
 
-df = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/df.csv',
+df = pd.read_csv('df.csv',
                  usecols=usecols,
                  dtype=dtype
 )
@@ -88,8 +88,8 @@ df['lt_rule'] = 'Unknown'
 
 '''
 1) Procurement not covered, limited tendering not invoked = 'Yes'
-2) Procurement not covered, limited tendering invoked = 'no_it_lt' (default)
-3) Procurement covered, limited tendering invoked = 'it_ly'
+2) Procurement not covered, limited tendering invoked = 'no_it_yes_lt' (default)
+3) Procurement covered, limited tendering invoked = 'yes_it_yes_ly'
 4) Procurement covered, limited tendering not invoked = 'it_no_lt'
 '''
 i = df
@@ -99,6 +99,6 @@ for x in agreement_codes:
         i.loc[((i['agreement_type_code'] == x) & (i['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'no_it_lt'
     else:
         i.loc[((i['agreement_type_code'] == x) & (i['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'it_ly'
-        i.loc[((i['agreement_type_code'] == x) & (i['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'it_no_lt'
+        i.loc[((i['agreement_type_code'] == x) & (i['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
 
-i.to_csv('C:/Users/danli/documents/github/trade_analysis/limited.csv')
+i.to_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/limited.csv')

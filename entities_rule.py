@@ -26,12 +26,12 @@ dtype={
     'abbreviation': str
 }
 
-df = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/df.csv',
+df = pd.read_csv('df.csv',
                  usecols=usecols,
                  dtype=dtype
 )
 
-ent = pd.read_csv('C:/Users/danli/documents/github/trade_analysis/entities_list.csv')
+ent = pd.read_csv('entities_list.csv')
 
 df = df.merge(ent, how='outer', left_on='abbreviation', right_on='Abbreviation')
 
@@ -89,7 +89,8 @@ for y in agreement_codes:
         i.loc[(i['agreement_type_code'] == y) & (i[y] == 'No'), 'entities_rule'] = 'No'
 
 i = i[i['entities_rule'] == 'No']
-i.to_csv('C:/Users/danli/documents/github/trade_analysis/entities_rule.csv')
+
+i.to_csv('entities_rule.csv')
 
 
 

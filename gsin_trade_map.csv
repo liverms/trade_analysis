@@ -1,4 +1,4 @@
-GSIN Code,NAFTA,CCFTA,CCoFTA,CHFTA,CPaFTA,CPFTA,CKFTA,WTO-AGP,CETA,CPTPP,Type
+commodity_code,NAFTA,CCFTA,CCoFTA,CHFTA,CPaFTA,CPFTA,CKFTA,WTO-AGP,CETA,CPTPP,Type
 5112B,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Construction
 5113B,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Construction
 5114C,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Construction
@@ -4934,4 +4934,4 @@ N9930A,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Goods
 N9930D,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Goods
 N9999,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Goods
 NCLOG,No 1,No 1,No 1,No 1,No 1,No 1,No 1,No 1,No 1,No 1,Goods
-,,,,,,,,,,,Goods
+
