@@ -1,5 +1,5 @@
 import pandas as pd
-from collections import defaultdict
+
 
 usecols=[
     'original_value',
@@ -32,10 +32,6 @@ df = pd.read_csv('df.csv',
                  dtype=dtype
 )
 
-thresholds = pd.read_csv('thresholds.csv')
-thresholds.set_index('Type', inplace=True)
-
-
 gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
                              usecols=[
                                           'commodity_code',
@@ -67,9 +63,7 @@ gsin_trade_map = pd.read_csv('gsin_trade_map.csv',
                                       }
                              )
 
-
 df = df.merge(gsin_trade_map, how='left', left_on='commodity_code', right_on='commodity_code')
-
 trade_agreements = [
     'NAFTA',
     'CCFTA',
@@ -82,6 +76,7 @@ trade_agreements = [
     'CETA',
     'CPTPP'
 ]
+
 agreement_codes = [
     'CFTA',
     '0',
@@ -92,35 +87,37 @@ agreement_codes = [
     'CPaFTA',
     'CPFTA',
     'CKFTA',
-    'CUFTA',
     'WTO-AGP',
     'CETA',
     'CPTPP'
 ]
-df['thresholds'] = 'Unknown'
 
 '''
-1) Procurement is not covered, value is above thresholds 'Unknown'
-2) Procurement is not covered, value is below thresholds 'Yes'
-3) Procurement is covered, value is above thresholds 'Yes'
-4) Procurement is covered, value is below thresholds 'No'
+1) Commodity covered, procurement covered = Yes
+2) Commodity covered, procurement not covered  = No
+3) Commodity not covered, procurement covered = Unknown
+4) Commodity not covered, procurement not covered = Yes
 '''
-i = df
-commodities = ['Goods', 'Services', 'Construction']
+df['commodity_rule'] = 'Unknown'
+
+for y in trade_agreements:
+    df[y] = df[y].str.upper()
+
 for x in agreement_codes:
-    for c in commodities:
+    if x == 'CFTA':
+        pass
+    else:
         if x == '0':
-            dollar = thresholds.loc[c].at['CFTA']
-            i.loc[((i['original_value'] > dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Unknown'
-            i.loc[((i['original_value'] < dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Yes'
+            df.loc[(df['NAFTA'].str.contains('NO')) & (df['CCFTA'].str.contains('NO')) & (df['CCFTA'].str.contains('NO')) & (df['CCoFTA'].str.contains('NO'))
+                   & (df['CHFTA'].str.contains('NO')) & (df['CPaFTA'].str.contains('NO')) & (df['CPFTA'].str.contains('NO')) & (df['CKFTA'].str.contains('NO'))
+                   & (df['WTO-AGP'].str.contains('NO')) & (df['CETA'].str.contains('NO')) & (df['CPTPP'].str.contains('NO')),
+                   'commodity_rule'] = 'Yes'
         else:
-            dollar = thresholds.loc[c].at[x]
-            i.loc[((i['original_value'] > dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'Yes'
-            i.loc[((i['original_value'] < dollar) & (i['agreement_type_code'] == x) & (i['commodity_type_code'] == c)), 'thresholds'] = 'No'
-
-i['same_com_type'] = 'Error'
-i.loc[(i['commodity_type_code'] == i['Type']), 'same_com_type'] = 'Yes'
-i.loc[(i['commodity_type_code'] != i['Type']), 'same_com_type'] = 'No'
+            df.loc[(df['agreement_type_code'] == x) & (df[x].str.contains('YES')), 'commodity_rule'] = 'Yes'
+            df.loc[(df['agreement_type_code'] == x) & (df[x].str.contains('NO')), 'commodity_rule'] = 'No'
 
 
+df = df[df['commodity_rule'] == 'No']
+print(df)
 
+df.to_csv('commodity.csv')
