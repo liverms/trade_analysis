@@ -31,11 +31,20 @@ df = pd.read_csv(
     dtype=dtype
 )
 
-lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_unspsc_gsin.csv',
+lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_gsin_unspsc.csv',
                                  usecols=['gsin', 'unspsc_code'],
                                  dtype={'gsin': str,
                                         'unspsc_code': str})
 ent = pd.read_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/entities_list.csv')
+
+gsin_trade_agreements = pd.read_excel('C:/Users/slivermo/pycharmprojects/trade_analysis/Trade_Agreement_Mapping.xlsx',
+                                      sheet_name='Sheet3',
+                                      usecols=[
+                                          'GSIN CODE',
+
+                                      ]
+                                      )
+
 
 #get rid of empty cells and NA
 for col in usecols:
