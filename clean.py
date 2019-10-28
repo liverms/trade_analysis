@@ -26,24 +26,32 @@ dtype={
 }
 #read in csv
 df = pd.read_csv(
-    'C:/Users/slivermo/Desktop/contracts_original.csv',
+    'C:/Users/slivermo/desktop/contracts_original.csv',
     usecols=usecols,
     dtype=dtype
 )
+
+lookup_gsin_unspsc = pd.read_csv('C:/Users/slivermo/desktop/lookup_unspsc_gsin.csv',
+                                 usecols=['gsin', 'unspsc_code'],
+                                 dtype={'gsin': str,
+                                        'unspsc_code': str})
+ent = pd.read_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/entities_list.csv')
 
 #get rid of empty cells and NA
 for col in usecols:
     df[col] = df[col].str.strip()
 
 def document_type_code(df_in):
-    fix_doc_type = ['c', 'C ', 'C']
-    for error in fix_doc_type:
-        df_in['document_type_code'] = df_in['document_type_code'].str.replace(error, 'Contract')
+    c_type = ['c', 'C ', 'C']
+    for error in c_type:
+        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Contract')
 
     fix_doc_type = ['A']
     for error in fix_doc_type:
-        df_in['document_type_code'] = df_in['document_type_code'].str.replace(error, 'Amendment')
+        df_in['document_type_code'] = df_in['document_type_code'].replace(error, 'Amendment')
 
+    doc_type = ['Contract', 'Amendment', 'SOSA']
+    df_in = df_in[df_in['document_type_code'].isin(doc_type)]
     return df_in
 
 
@@ -103,12 +111,13 @@ def commodity_type_code(df_in):
             df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Goods'
         for letter in unknown_letters:
             df_in.loc[df_in['commodity_code'].str.slice(0, 1) == letter, 'commodity_type_code'] = 'Unknown'
+
+    df_in = df_in[df_in['commodity_type_code'].isin(commodity_codes)]
+
     return df_in
 
 
 def reporting_period(df_in):
-
-
     #fix reporting period of 2016
     fix_2016 = [
         '2016-2017-Q1',
@@ -220,6 +229,24 @@ def agreement_type_code(df_in):
 
     df_in['agreement_type_code'] = df_in['agreement_type_code'].str.split('/').tolist()
     df_in = df_in.explode('agreement_type_code')
+
+    agreement_codes = [
+        'CFTA',
+        '0',
+        'NAFTA',
+        'CCFTA',
+        'CCoFTA',
+        'CHFTA',
+        'CPaFTA',
+        'CPFTA',
+        'CKFTA',
+        'CUFTA',
+        'WTO-AGP',
+        'CETA',
+        'CPTPP'
+    ]
+    df_in = df_in[df_in['agreement_type_code'].isin(agreement_codes)]
+
     return df_in
 
 
@@ -326,31 +353,103 @@ def limited_tendering_reason_code(df_in):
     df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('0', '00')
     df_in['limited_tendering_reason_code'] = df_in['limited_tendering_reason_code'].replace('5', '05')
 
+    limited_tendering_reason = [
+        '00',
+        '05',
+        '20',
+        '21',
+        '22',
+        '22',
+        '71',
+        '72',
+        '74',
+        '81',
+        '23',
+        '24',
+        '25',
+        '86',
+        '90',
+        '87',
+        '85'
+    ]
+    df_in = df_in[df_in['limited_tendering_reason_code'].isin(limited_tendering_reason)]
 
     return df_in
 
-ent = pd.read_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/entities_list.csv')
 
+def commodity_code(df_in):
+    lookup = dict(zip(lookup_gsin_unspsc['unspsc_code'], lookup_gsin_unspsc['gsin']))
+    unique_gsin = lookup_gsin_unspsc['gsin'].unique().astype(str)
+    unique_com = df_in['commodity_code'].unique().astype(str)
+
+    for key, value in lookup.items():
+        df_in['commodity_code'].replace(key, value, inplace=True)
+
+    compare={}
+    for x in unique_com:
+        for y in unique_gsin:
+            if x == y:
+                pass
+            elif x.startswith(y):
+                compare[x] = y
+            else:
+                pass
+
+    for key, value in compare.items():
+        df_in['commodity_code'].replace(key, value, inplace=True)
+    #
+    # df_in = df_in[df_in['commodity_code'].isin(lookup_gsin_unspsc['gsin'].unique())]
+
+    return df_in
+
+print('reporting period')
+print(df)
 df = reporting_period(df)
+df.dropna(inplace=True)
 
 years = ['2019', '2018', '2017']
 df = df[df['reporting_period'].isin(years)]
+df.dropna(inplace=True)
 
+print('commodity_code below')
+print(df)
+df=commodity_code(df)
+df.dropna(inplace=True)
+
+print('limited tendering below')
+print(df)
 df = limited_tendering_reason_code(df)
+df.dropna(inplace=True)
+
+print('owner_abrev')
+print(df)
 df = owner_abrev(df)
+df.dropna(inplace=True)
+
+print('original val below')
+print(df)
 df = original_value(df)
+df.dropna(inplace=True)
+
+print('commodity type code below')
+print(df)
 df = commodity_type_code(df)
+
+print('doc type below')
+print(df)
 df = document_type_code(df)
+df.dropna(inplace=True)
+
+print('agreement type below')
+print(df)
 df = agreement_type_code(df)
+df.dropna(inplace=True)
 
-
-# df = df[df['commodity_type_code'] != 'Goods']
-# df = df[df['commodity_type_code'] != 'Services']
-# df = df[df['commodity_type_code'] != 'Construction']
-
+get_contract = ['Contract']
+df=df[df['document_type_code'].isin(get_contract)]
 
 print(df)
 # pd.DataFrame(df_un).to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/un.csv')
 
-ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
-df.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/df.csv')
+# ent.to_csv('C:/Users/slivermo/PycharmProjects/trade_analysis/ent.csv')
+df.to_csv('C:/Users/slivermo/pycharmprojects/trade_analysis/test.csv')
