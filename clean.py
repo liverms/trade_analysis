@@ -364,3 +364,25 @@ def commodity_code(df_in, gsin_unspsc_map, df_commodities):
 
     return df_in
 
+
+def exemption_code(df_in):
+    col = 'exemption_code'
+    df_in[col].fillna('00', inplace=True)
+    df_in[col] = df_in[col].replace('0', '00')
+    df_in[col] = df_in[col].replace('4', '04')
+    df_in[col] = df_in[col].replace('3', '03')
+    df_in[col] = df_in[col].replace('1', '01')
+    df_in[col] = df_in[col].replace('6', '06')
+
+    exemptions = [
+        '00',
+        '01',
+        '02',
+        '03',
+        '04',
+        '05',
+        '06'
+    ]
+    df_in = df_in[df_in[col].isin(exemptions)]
+
+    return df_in

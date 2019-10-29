@@ -11,7 +11,8 @@ usecols=[
     'document_type_code',
     'agreement_type_code',
     'procurement_id',
-    'limited_tendering_reason_code'
+    'limited_tendering_reason_code',
+    'exemption_code'
 ]
 #data types of columns
 dtype={
@@ -23,7 +24,8 @@ dtype={
     'document_type_code':str,
     'agreement_type_code': str,
     'procurement_id': str,
-    'limited_tendering_reason_code': str
+    'limited_tendering_reason_code': str,
+    'exemption_code': str
 }
 
 df = pd.read_csv('C:/Users/slivermo/desktop/contracts_original.csv',
@@ -126,71 +128,75 @@ agreement_codes = [
 for col in usecols:
     df[col] = df[col].str.strip()
 
-df = clean.document_type_code(df)
-print('doc type below')
+# df = clean.document_type_code(df)
+# print('doc type below')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = df[df['document_type_code'] == 'Contract']
+#
+# df = clean.reporting_period(df)
+# print('reporting period')
+# print(df)
+# df.dropna(inplace=True)
+#
+# years = ['2019', '2018', '2017']
+# df = df[df['reporting_period'].isin(years)]
+# df.dropna(inplace=True)
+#
+# df=clean.commodity_code(df, gsin_unspsc_map, df_commodities)
+# print('commodity_code below')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = clean.limited_tendering_reason_code(df)
+# print('limited tendering below')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = clean.owner_abrev(df)
+# print('owner_abrev')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = clean.original_value(df)
+# print('original val below')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = clean.commodity_type_code(df)
+# print('commodity type code below')
+# print(df)
+#
+# df = clean.agreement_type_code(df, agreement_codes)
+# print('agreement type below')
+# print(df)
+# df.dropna(inplace=True)
+
+df = clean.exemption_code(df)
+print('exemption code')
 print(df)
-df.dropna(inplace=True)
-
-df = df[df['document_type_code'] == 'Contract']
-
-df = clean.reporting_period(df)
-print('reporting period')
-print(df)
-df.dropna(inplace=True)
-
-years = ['2019', '2018', '2017']
-df = df[df['reporting_period'].isin(years)]
-df.dropna(inplace=True)
-
-df=clean.commodity_code(df, gsin_unspsc_map, df_commodities)
-print('commodity_code below')
-print(df)
-df.dropna(inplace=True)
-
-df = clean.limited_tendering_reason_code(df)
-print('limited tendering below')
-print(df)
-df.dropna(inplace=True)
-
-df = clean.owner_abrev(df)
-print('owner_abrev')
-print(df)
-df.dropna(inplace=True)
-
-df = clean.original_value(df)
-print('original val below')
-print(df)
-df.dropna(inplace=True)
-
-df = clean.commodity_type_code(df)
-print('commodity type code below')
-print(df)
-
-df = clean.agreement_type_code(df, agreement_codes)
-print('agreement type below')
-print(df)
-df.dropna(inplace=True)
 
 # ## Analysis
-df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
-print('entities rule')
-print(df)
-df.dropna(inplace=True)
-
-df = rules.limited_tendering(df, agreement_codes)
-print('limited tendering')
-print(df)
-df.dropna(inplace=True)
-
-df = rules.thresholds(df, df_thresholds, agreement_codes)
-print('thresholds')
-print(df)
-df.dropna(inplace=True)
-
-df = rules.commodities(df, df_commodities, trade_agreements, agreement_codes)
-print('commodities rules')
-print(df)
-df.dropna(inplace=True)
+# df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
+# print('entities rule')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = rules.limited_tendering(df, agreement_codes)
+# print('limited tendering')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = rules.thresholds(df, df_thresholds, agreement_codes)
+# print('thresholds')
+# print(df)
+# df.dropna(inplace=True)
+#
+# df = rules.commodities(df, df_commodities, trade_agreements, agreement_codes)
+# print('commodities rules')
+# print(df)
+# df.dropna(inplace=True)
 
 print(df)
 df.to_csv('analyzed.csv')

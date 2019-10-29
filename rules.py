@@ -147,3 +147,33 @@ def commodities(df_in, df_commodities, trade_agreements, agreement_codes):
         df_in.drop(z, axis=1, inplace=True)
     return df_in
 
+def exemption(df_in, agreement_codes):
+    col = 'exemption_code'
+    exemptions = [
+        '00',
+        '01',
+        '02',
+        '03',
+        '04',
+        '05',
+        '06'
+    ]
+    df_in = df_in[df_in[col].isin(exemptions)]
+    df_in['ex_rule'] = 'Unknown'
+
+    '''
+    1) Procurement not covered, exemption not invoked = 'Yes'
+    2) Procurement not covered, exemption invoked = 'no_it_yes_ex' (default)
+    3) Procurement covered, limited tendering invoked = 'yes_it_yes_ex'
+    4) Procurement covered, limited tendering not invoked = 'it_no_lt'
+    '''
+    for x in agreement_codes:
+        if x == '0':
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (
+                        df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'no_it_lt'
+        else:
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'it_ly'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
+
+    return df_in
