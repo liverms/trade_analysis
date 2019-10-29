@@ -253,9 +253,9 @@ df.rename({'Entity': 'abbreviation',
             'agreement_type_code',
            'Commodity': 'commodity_code',
            'Commodity Rule':
-               'commodity_rule',
+            'commodity_rule',
            'Commodity Type':
-               'commodity_type_code',
+            'commodity_type_code',
            'Country of Origin': 'country_of_origin',
            'Entities Rule': 'entities_rule',
            'Exemptions Rule': 'ex_rule',
