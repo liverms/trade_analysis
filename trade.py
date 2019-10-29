@@ -39,7 +39,7 @@ df = pd.read_csv('C:/Users/slivermo/desktop/contracts_original.csv',
 df['uuid'] = [uuid.uuid4() for __ in range(df.index.size)]
 df.set_index('uuid', inplace=True)
 
-df_copy = df
+df_copy = df.copy(deep=True)
 df_entities = pd.read_csv('df_entities.csv')
 
 df_thresholds = pd.read_csv('df_thresholds.csv',
@@ -220,16 +220,26 @@ df['coverage_applied'] = 'Unknown'
 df.loc[(df['entities_rule'] != 'No') & (df['thresholds'] != 'No') & (df['commodity_rule'] != 'No') & (df['lt_rule'] != 'No') & (df['ex_rule'] != 'No'), 'coverage_applied'] = 'Yes'
 df.loc[(df['entities_rule'] == 'No') | (df['thresholds'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
 
-df.to_csv('step.csv')
 
-
+i = df.copy(deep=True)
 df = df.groupby('uuid')['coverage_applied'].apply(','.join)
 df = pd.DataFrame(df)
-
+# df.set_index('uuid', inplace=True)
+df.to_csv('step.csv')
 df.loc[(df['coverage_applied'].str.contains('No')), 'coverage_applied'] = 'No'
 df.loc[(df['coverage_applied'].str.contains('Yes')), 'coverage_applied'] = 'Yes'
 
-df = df.merge(df_copy, left_index=True, right_index=True, how='left')
-
+print(i)
+i.drop_duplicates('uuid', inplace=True)
+i.set_index('uuid', inplace=True)
 print(df)
+
+
+df = df.merge(i, how='left', on='uuid', copy=False)
+
+print(i)
+print(df)
+
+df = df[df['coverage_applied_y'] == 'No']
 df.to_csv('analyzed.csv')
+
