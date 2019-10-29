@@ -8,8 +8,10 @@ def entities(df_in, df_entities, agreement_codes, trade_agreements):
     3) Procurement covered by a TA by an entity not covered ('No')
     4) Procurement covered by a TA by an entity covered ('Yes')
     '''
-    print('entity')
+
+    df_in['copy_index'] = df_in.index
     df_in = pd.merge(df_in, df_entities, how='left', left_on='abbreviation', right_on='abbreviation')
+    df_in.set_index('copy_index', inplace=True)
     df_in['entities_rule'] = 'Unknown'
 
     for y in agreement_codes:
@@ -55,17 +57,16 @@ def limited_tendering(df_in, agreement_codes):
 
     '''
     1) Procurement not covered, limited tendering not invoked = 'Yes'
-    2) Procurement not covered, limited tendering invoked = 'no_it_yes_lt' (default)
+    2) Procurement not covered, limited tendering invoked = 'Unknown' (default)
     3) Procurement covered, limited tendering invoked = 'yes_it_yes_ly'
-    4) Procurement covered, limited tendering not invoked = 'it_no_lt'
+    4) Procurement covered, limited tendering not invoked = 'Yes'
     '''
     for x in agreement_codes:
         if x == '0':
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
-            df_in.loc[((df_in['agreement_type_code'] == x) & (
-                        df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'no_it_lt'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'Unknown'
         else:
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'it_ly'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'Unknown'
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
 
     return df_in
@@ -117,10 +118,15 @@ def commodities(df_in, df_commodities, trade_agreements, agreement_codes):
     3) Commodity not covered, procurement covered = Unknown
     4) Commodity not covered, procurement not covered = Yes
     '''
+    df_in['uuid'] = df_in.index
     df_in = df_in.merge(df_commodities, how='left', left_on='commodity_code', right_on='commodity_code')
+    df_in.set_index('uuid', inplace=True)
+
     df_in['same_com_type'] = 'Error'
     df_in.loc[(df_in['commodity_type_code'] == df_in['Type']), 'same_com_type'] = 'Yes'
     df_in.loc[(df_in['commodity_type_code'] != df_in['Type']), 'same_com_type'] = 'No'
+    df_in['copy_index'] = df_in.index
+
 
     df_in['commodity_rule'] = 'Unknown'
 
@@ -162,17 +168,17 @@ def exemption(df_in, agreement_codes):
     df_in['ex_rule'] = 'Unknown'
 
     '''
-    1) Procurement not covered, exemption not invoked = 'no_it_no_ex'
-    2) Procurement not covered, exemption invoked = 'no_it_yes_ex' (default)
-    3) Procurement covered, exemption invoked = 'yes_it_yes_ex'
-    4) Procurement covered, exemption not invoked = 'yes_it_no_ex'
+    1) Procurement not covered, exemption not invoked = 'Yes'
+    2) Procurement not covered, exemption invoked = 'Unknown' (default)
+    3) Procurement covered, exemption invoked = 'Unknown'
+    4) Procurement covered, exemption not invoked = 'Yes'
     '''
     for x in agreement_codes:
         if x == '0':
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'no_it_yes_ex'
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'no_it_no_ex'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'Unknown'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'Yes'
         else:
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'yes_it_yes_ex'
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'yes_it_no_ex'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'Unknown'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'Yes'
 
     return df_in
