@@ -237,6 +237,14 @@ i.set_index('uuid', inplace=True)
 
 df = df.merge(i, how='left', on='uuid', copy=False)
 
+code_lookup = pd.read_csv('commodity_code_lookup.csv',
+                      usecols=[
+                          'commodity_code',
+                          'gsin_description_en'
+                      ]
+                          )
+
+df = df.merge(code_lookup, how='left', on='commodity_code', copy=False)
 
 df = df[df['coverage_applied_y'] == 'No']
 df.drop('copy_index', axis=1, inplace=True)
@@ -266,7 +274,6 @@ df.rename({'Entity': 'abbreviation',
             'Year': 'reporting_period',
            'Thresholds Rule': 'thresholds'
            }, inplace=True)
-
 
 
 
