@@ -386,3 +386,14 @@ def exemption_code(df_in):
     df_in = df_in[df_in[col].isin(exemptions)]
 
     return df_in
+
+
+def country_of_origin(df_in):
+    col = 'country_of_origin'
+
+    df_in[col] = df_in[col].replace('CAN', 'CA')
+    df_in[col] = df_in[col].replace('Canada', 'CA')
+    df_in[col] = df_in[col].replace('ca', 'CA')
+    df_in[col] = df_in[col].replace('USA', 'US')
+
+    return df_in
