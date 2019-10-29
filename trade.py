@@ -224,22 +224,51 @@ df.loc[(df['entities_rule'] == 'No') | (df['thresholds'] == 'No') | (df['commodi
 i = df.copy(deep=True)
 df = df.groupby('uuid')['coverage_applied'].apply(','.join)
 df = pd.DataFrame(df)
-# df.set_index('uuid', inplace=True)
-df.to_csv('step.csv')
+
+
 df.loc[(df['coverage_applied'].str.contains('No')), 'coverage_applied'] = 'No'
 df.loc[(df['coverage_applied'].str.contains('Yes')), 'coverage_applied'] = 'Yes'
 
-print(i)
+
 i.drop_duplicates('uuid', inplace=True)
 i.set_index('uuid', inplace=True)
-print(df)
+
 
 
 df = df.merge(i, how='left', on='uuid', copy=False)
 
-print(i)
-print(df)
 
 df = df[df['coverage_applied_y'] == 'No']
-df.to_csv('analyzed.csv')
+df.drop('copy_index', axis=1, inplace=True)
+df.drop('coverage_applied_x', axis=1, inplace=True)
+df.drop('document_type_code', axis=1, inplace=True)
+df.drop('procurement_id', axis=1, inplace=True)
+df.drop('Federal Entity', axis=1, inplace=True)
+df.drop('owner_org_title', axis=1, inplace=True)
+# df.drop('uuid', axis=1, inplace=True)
+df.drop('coverage_applied_y', axis =1, inplace=True)
+df.drop('Type', axis=1, inplace=True)
+df.rename({'Entity': 'abbreviation',
+           'Trade Agreement Code':
+            'agreement_type_code',
+           'Commodity': 'commodity_code',
+           'Commodity Rule':
+               'commodity_rule',
+           'Commodity Type':
+               'commodity_type_code',
+           'Country of Origin': 'country_of_origin',
+           'Entities Rule': 'entities_rule',
+           'Exemptions Rule': 'ex_rule',
+           'Exemption': 'exemption_code',
+           'Limited Tendering Reason': 'limited_tendering_reason_code',
+           'Limited Tendering Rule': 'lt_rule',
+           'Original Value': 'original_value',
+            'Year': 'reporting_period',
+           'Thresholds Rule': 'thresholds'
+           }, inplace=True)
+
+
+
+
+df.to_csv('contracts.csv')
 
