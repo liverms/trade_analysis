@@ -88,22 +88,22 @@ def thresholds(df_in, df_thresholds, agreement_codes):
             if x == '0':
                 dollar = df_thresholds.loc[c].at['CFTA']
 
-                df_in.loc[((df_in['original_value'] > dollar) &
+                df_in.loc[((df_in['original_value'] > (dollar*1.25)) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Unknown'
-                df_in.loc[((df_in['original_value'] < dollar) &
+                df_in.loc[((df_in['original_value'] < (dollar*0.75)) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Yes'
             else:
                 dollar = df_thresholds.loc[c].at[x]
 
-                df_in.loc[((df_in['original_value'] > dollar) &
+                df_in.loc[((df_in['original_value'] > (dollar*1.25)) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'Yes'
-                df_in.loc[((df_in['original_value'] < dollar) &
+                df_in.loc[((df_in['original_value'] < (dollar*0.75)) &
                            (df_in['agreement_type_code'] == x) &
                            (df_in['commodity_type_code'] == c)),
                           'thresholds'] = 'No'

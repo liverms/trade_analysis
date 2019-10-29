@@ -1,4 +1,4 @@
-commodity_code,gsin-description_en
+commodity_code,gsin_description_en
 5112B,Demolition Work
 5113B,Rock Blasting Services
 5114C,Excavating and Earthmoving Work
@@ -1829,7 +1829,7 @@ N4130JA,Refrigeration Systems and Components (Marine)
 N4130K,"Refrigeration, A/C Supplies (Valves, Fittings, Etc.) (Industrial)"
 N4130L,"Condensers, Refrigeration (Industrial)"
 N4130LA,"Condensers, Refrigeration, Water-Cooled (Industrial)"
-N4130LB,"Condenseurs, réfrigération, Air-Cooled (Industrial)"
+N4130LB,"Condenseurs, rï¿½frigï¿½ration, Air-Cooled (Industrial)"
 N4130M,"Water Chillers, Except Marine, Armoured Fighting Vehicles and Aircraft"
 N4130N,"Refrigeration and Air Conditioning Components, Armoured Fighting Vehicle, S.M.P."
 N4130P,"Compressors, Refrigeration (Industrial) Except Marine, Armoured Fighting Vehicle, and Aircraft"
@@ -3962,7 +3962,7 @@ N8450,Children's and Infant's Apparel and Accessories
 N8455,Badges and Insignia
 N8455ACB,"BADGE, IDENTIFICATION, LAMINATED PLASTIC, WITH ENGRAVED  LETTERING"
 N8460,Luggage
-N8460R,"Case, Attaché (security only)"
+N8460R,"Case, Attachï¿½ (security only)"
 N8465,Individual Equipment
 N8465S,CLIMBING EQUIPMENT SET
 N8465V,SKIS
