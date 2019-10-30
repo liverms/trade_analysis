@@ -193,9 +193,9 @@ df = clean.country_of_origin(df)
 print('clean country')
 print(df)
 
-df = df[df['document_type_code'] == 'Amendment']
-df.to_csv('amendment_before_analysis.csv')
-
+# df = df[df['document_type_code'] == 'Amendment']
+# df.to_csv('amendment_before_analysis.csv')
+# df = pd.read_csv('amendment_before_analysis.csv')
 # ## Analysis
 df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
 print('entities rule')
@@ -207,10 +207,10 @@ print('limited tendering')
 print(df)
 df.dropna(inplace=True)
 
-# df = rules.thresholds(df, df_thresholds, agreement_codes)
-# print('thresholds')
-# print(df)
-# df.dropna(inplace=True)
+df = rules.thresholds(df, df_thresholds, agreement_codes)
+print('thresholds')
+print(df)
+df.dropna(inplace=True)
 
 df = rules.commodities(df, df_commodities, trade_agreements, agreement_codes)
 print('commodities rules')
@@ -221,30 +221,30 @@ df = rules.exemption(df, agreement_codes)
 print('exemption rules')
 print(df)
 
-# df = pd.read_csv('test.csv')
 df.to_csv('test.csv')
+# df = pd.read_csv('test.csv')
 df['coverage_applied'] = 'Unknown'
 
-df.loc[(df['entities_rule'] == 'Yes') | (df['commodity_rule'] == 'Yes') | (df['lt_rule'] == 'Yes') | (df['ex_rule'] == 'Yes'), 'coverage_applied'] = 'Yes'
-df.loc[(df['entities_rule'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
+df.loc[(df['entities_rule'] == 'Yes') | (df['thresholds'] == 'Yes') | (df['commodity_rule'] == 'Yes') | (df['lt_rule'] == 'Yes') | (df['ex_rule'] == 'Yes'), 'coverage_applied'] = 'Yes'
+df.loc[(df['entities_rule'] == 'No') | (df['thresholds'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
 
-
+print(df)
 i = df.copy(deep=True)
 df = df.groupby('uuid')['coverage_applied'].apply(','.join)
 df = pd.DataFrame(df)
-
+print(df)
 
 df.loc[(df['coverage_applied'].str.contains('No')), 'coverage_applied'] = 'No'
 df.loc[(df['coverage_applied'].str.contains('Yes')), 'coverage_applied'] = 'Yes'
-
-
-# i.drop_duplicates('uuid', inplace=True)
+print(i)
+i.drop('agreement_type_code', axis=1, inplace=True)
+i = i[~i.index.duplicated()]
 # i.set_index('uuid', inplace=True)
 
 
 
-df = df.merge(i, how='left', on='uuid', copy=False)
-
+df = df.merge(i, how='inner', on='uuid', copy=False)
+print(df)
 code_lookup = pd.read_csv('commodity_code_lookup.csv',
                       usecols=[
                           'commodity_code',
@@ -254,7 +254,7 @@ code_lookup = pd.read_csv('commodity_code_lookup.csv',
 
 df = df.merge(code_lookup, how='left', on='commodity_code', copy=False)
 
-# df = df[df['coverage_applied_y'] == 'No']
+df = df[df['coverage_applied_y'] == 'No']
 df.drop('copy_index', axis=1, inplace=True)
 df.drop('same_com_type', axis=1, inplace=True)
 df.drop('commodity_code', axis=1, inplace=True)
@@ -288,5 +288,5 @@ df = df.rename(
 
 
 
-df.to_csv('amendments.csv')
+df.to_csv('contracts_no.csv')
 
