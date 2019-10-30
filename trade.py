@@ -14,7 +14,8 @@ usecols=[
     'procurement_id',
     'limited_tendering_reason_code',
     'exemption_code',
-    'country_of_origin'
+    'country_of_origin',
+    'amendment_value'
 ]
 #data types of columns
 dtype={
@@ -28,7 +29,8 @@ dtype={
     'procurement_id': str,
     'limited_tendering_reason_code': str,
     'exemption_code': str,
-    'country_of_origin': str
+    'country_of_origin': str,
+    'amendment_value': str
 }
 
 df = pd.read_csv('C:/Users/slivermo/desktop/contracts_original.csv',
@@ -140,8 +142,6 @@ print('doc type below')
 print(df)
 df.dropna(inplace=True)
 
-df = df[df['document_type_code'] == 'Contract']
-
 df = clean.reporting_period(df)
 print('reporting period')
 print(df)
@@ -171,6 +171,11 @@ print('original val below')
 print(df)
 df.dropna(inplace=True)
 
+df = clean.amendment_value(df)
+print('amendment val below')
+print(df)
+df.dropna(inplace=True)
+
 df = clean.commodity_type_code(df)
 print('commodity type code below')
 print(df)
@@ -187,6 +192,9 @@ print(df)
 df = clean.country_of_origin(df)
 print('clean country')
 print(df)
+
+df = df[df['document_type_code'] == 'Amendment']
+df.to_csv('amendment_before_analysis.csv')
 
 # ## Analysis
 df = rules.entities(df, df_entities, agreement_codes, trade_agreements)
@@ -217,7 +225,7 @@ print(df)
 df.to_csv('test.csv')
 df['coverage_applied'] = 'Unknown'
 
-df.loc[(df['entities_rule'] != 'No') & (df['thresholds'] != 'No') & (df['commodity_rule'] != 'No') & (df['lt_rule'] != 'No') & (df['ex_rule'] != 'No'), 'coverage_applied'] = 'Yes'
+df.loc[(df['entities_rule'] == 'Yes') | (df['thresholds'] == 'Yes') | (df['commodity_rule'] == 'Yes') | (df['lt_rule'] == 'Yes') | (df['ex_rule'] == 'Yes'), 'coverage_applied'] = 'Yes'
 df.loc[(df['entities_rule'] == 'No') | (df['thresholds'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
 
 
@@ -230,8 +238,8 @@ df.loc[(df['coverage_applied'].str.contains('No')), 'coverage_applied'] = 'No'
 df.loc[(df['coverage_applied'].str.contains('Yes')), 'coverage_applied'] = 'Yes'
 
 
-i.drop_duplicates('uuid', inplace=True)
-i.set_index('uuid', inplace=True)
+# i.drop_duplicates('uuid', inplace=True)
+# i.set_index('uuid', inplace=True)
 
 
 
@@ -246,7 +254,7 @@ code_lookup = pd.read_csv('commodity_code_lookup.csv',
 
 df = df.merge(code_lookup, how='left', on='commodity_code', copy=False)
 
-df = df[df['coverage_applied_y'] == 'No']
+df = df[df['coverage_applied_y'] == 'Unknown']
 df.drop('copy_index', axis=1, inplace=True)
 df.drop('same_com_type', axis=1, inplace=True)
 df.drop('commodity_code', axis=1, inplace=True)
@@ -256,25 +264,30 @@ df.drop('procurement_id', axis=1, inplace=True)
 df.drop('Federal Entity', axis=1, inplace=True)
 df.drop('owner_org_title', axis=1, inplace=True)
 # df.drop('Unnamed_0', axis=1, inplace=True)
-df.drop('coverage_applied_y', axis =1, inplace=True)
+# df.drop('coverage_applied_y', axis =1, inplace=True)
 df.drop('Type', axis=1, inplace=True)
-df = df.rename(columns={'abbreviation': 'Entity',
-           'agreement_type_code': 'Trade Agreement Code',
-           'gsin_description_en': 'Commodity',
-           'commodity_rule': 'Commodity Rule',
-           'commodity_type_code': 'Commodity Type',
-           'country_of_origin': 'Country of Origin',
-           'entities_rule': 'Entities Rule',
-           'ex_rule': 'Exemptions Rule',
-           'exemption_code': 'Exemption',
-           'limited_tendering_reason_code': 'Limited Tendering Reason',
-           'lt_rule': 'Limited Tendering Rule',
-           'original_value': 'Original Value',
-            'reporting_period': 'Year',
-           'thresholds': 'Thresholds Rule'
-           })
+df = df.rename(
+    columns={
+        'abbreviation': 'Entity',
+        'agreement_type_code': 'Trade Agreement Code',
+        'gsin_description_en': 'Commodity',
+        'commodity_rule': 'Commodity Rule',
+        'commodity_type_code': 'Commodity Type',
+        'country_of_origin': 'Country of Origin',
+        'entities_rule': 'Entities Rule',
+        'ex_rule': 'Exemptions Rule',
+        'exemption_code': 'Exemption',
+        'limited_tendering_reason_code': 'Limited Tendering Reason',
+        'lt_rule': 'Limited Tendering Rule',
+        'original_value': 'Original Value',
+        'reporting_period': 'Year',
+        'thresholds': 'Thresholds Rule',
+        'amendment_value': 'Amendment Value',
+        'coverage_applied_y': 'Estimated Trade Coverage'
+    }
+)
 
 
 
-df.to_csv('amendments.csv')
+df.to_csv('amendments_unknown.csv')
 

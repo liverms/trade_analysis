@@ -25,6 +25,16 @@ def original_value(df_in):
     return df_in
 
 
+def amendment_value(df_in):
+    col = 'amendment_value'
+    df_in[col] = df_in[col].str.replace('$', '')
+    df_in[col] = df_in[col].str.replace(',', '')
+    df_in[col].str.strip()
+    df_in[col] = df_in[col].astype(float)
+    return df_in
+
+
+
 def commodity_type_code(df_in):
     col = 'commodity_type_code'
     # Change coding for Goods to string Goods
