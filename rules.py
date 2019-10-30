@@ -63,7 +63,7 @@ def limited_tendering(df_in, agreement_codes):
     '''
     for x in agreement_codes:
         if x == '0':
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Yes'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] == '00')), 'lt_rule'] = 'Unknown'
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'Unknown'
         else:
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in['limited_tendering_reason_code'] != '00')), 'lt_rule'] = 'Unknown'
@@ -176,7 +176,7 @@ def exemption(df_in, agreement_codes):
     for x in agreement_codes:
         if x == '0':
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'Unknown'
-            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'Yes'
+            df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'Unknown'
         else:
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] != '00')), 'ex_rule'] = 'Unknown'
             df_in.loc[((df_in['agreement_type_code'] == x) & (df_in[col] == '00')), 'ex_rule'] = 'Yes'
