@@ -207,10 +207,10 @@ print('limited tendering')
 print(df)
 df.dropna(inplace=True)
 
-df = rules.thresholds(df, df_thresholds, agreement_codes)
-print('thresholds')
-print(df)
-df.dropna(inplace=True)
+# df = rules.thresholds(df, df_thresholds, agreement_codes)
+# print('thresholds')
+# print(df)
+# df.dropna(inplace=True)
 
 df = rules.commodities(df, df_commodities, trade_agreements, agreement_codes)
 print('commodities rules')
@@ -225,8 +225,8 @@ print(df)
 df.to_csv('test.csv')
 df['coverage_applied'] = 'Unknown'
 
-df.loc[(df['entities_rule'] == 'Yes') | (df['thresholds'] == 'Yes') | (df['commodity_rule'] == 'Yes') | (df['lt_rule'] == 'Yes') | (df['ex_rule'] == 'Yes'), 'coverage_applied'] = 'Yes'
-df.loc[(df['entities_rule'] == 'No') | (df['thresholds'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
+df.loc[(df['entities_rule'] == 'Yes') | (df['commodity_rule'] == 'Yes') | (df['lt_rule'] == 'Yes') | (df['ex_rule'] == 'Yes'), 'coverage_applied'] = 'Yes'
+df.loc[(df['entities_rule'] == 'No') | (df['commodity_rule'] == 'No') | (df['lt_rule'] == 'No') | (df['ex_rule'] == 'No'), 'coverage_applied'] = 'No'
 
 
 i = df.copy(deep=True)
@@ -254,7 +254,7 @@ code_lookup = pd.read_csv('commodity_code_lookup.csv',
 
 df = df.merge(code_lookup, how='left', on='commodity_code', copy=False)
 
-df = df[df['coverage_applied_y'] == 'Unknown']
+# df = df[df['coverage_applied_y'] == 'No']
 df.drop('copy_index', axis=1, inplace=True)
 df.drop('same_com_type', axis=1, inplace=True)
 df.drop('commodity_code', axis=1, inplace=True)
@@ -281,7 +281,6 @@ df = df.rename(
         'lt_rule': 'Limited Tendering Rule',
         'original_value': 'Original Value',
         'reporting_period': 'Year',
-        'thresholds': 'Thresholds Rule',
         'amendment_value': 'Amendment Value',
         'coverage_applied_y': 'Estimated Trade Coverage'
     }
@@ -289,5 +288,5 @@ df = df.rename(
 
 
 
-df.to_csv('amendments_unknown.csv')
+df.to_csv('amendments.csv')
 
